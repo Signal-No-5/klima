@@ -1,0 +1,12 @@
+[submodule "data"]
+	path = data
+	url = https://github.com/Signal-No-5/klima-data
+[submodule "web/api"]
+	path = web/api
+	url = https://github.com/Signal-No-5/klima-api
+[submodule "web/dashboard"]
+	path = web/dashboard
+	url = https://github.com/Signal-No-5/klima-lgu-dashboard
+[submodule "app"]
+	path = app
+	url = https://github.com/Signal-No-5/klima-frontend
