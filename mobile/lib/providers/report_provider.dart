@@ -6,7 +6,7 @@ class ReportProvider with ChangeNotifier {
   final ApiService _apiService = ApiService();
   
   List<Report> _reports = [];
-  List<Report> _myReports = [];
+  final List<Report> _myReports = [];
   bool _isLoading = false;
   String? _error;
 

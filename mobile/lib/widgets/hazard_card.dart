@@ -250,11 +250,11 @@ class HazardCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       if (hazard.isVerified)
-                        Row(
+                        const Row(
                           children: [
-                            const Icon(Icons.verified, color: Colors.blue, size: 20),
-                            const SizedBox(width: 4),
-                            const Text('Verified'),
+                            Icon(Icons.verified, color: Colors.blue, size: 20),
+                            SizedBox(width: 4),
+                            Text('Verified'),
                           ],
                         ),
                     ],

@@ -11,7 +11,7 @@ class AppTheme {
   static const Color backgroundDark = Color(0xFF121212);
   static const Color cardLight = Colors.white;
   static const Color cardDark = Color(0xFF1E1E1E);
-  
+
   // Severity Colors
   static const Color severityLow = Color(0xFF4CAF50);
   static const Color severityModerate = Color(0xFFFFC107);
@@ -21,12 +21,11 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: primaryBlue,
       secondary: secondaryOrange,
       error: dangerRed,
       surface: cardLight,
-      background: backgroundLight,
     ),
     scaffoldBackgroundColor: backgroundLight,
     appBarTheme: const AppBarTheme(
@@ -35,7 +34,7 @@ class AppTheme {
       elevation: 0,
       centerTitle: true,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardLight,
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -78,12 +77,11 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    colorScheme: ColorScheme.dark(
+    colorScheme: const ColorScheme.dark(
       primary: primaryBlue,
       secondary: secondaryOrange,
       error: dangerRed,
       surface: cardDark,
-      background: backgroundDark,
     ),
     scaffoldBackgroundColor: backgroundDark,
     appBarTheme: const AppBarTheme(
@@ -92,7 +90,7 @@ class AppTheme {
       elevation: 0,
       centerTitle: true,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardDark,
       elevation: 2,
       shape: RoundedRectangleBorder(

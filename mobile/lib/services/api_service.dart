@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:latlong2/latlong.dart';
 import '../models/hazard.dart';
 import '../models/report.dart';
 import '../models/risk.dart';
@@ -113,8 +114,7 @@ class ApiService {
   // Fetch risk data for a barangay
   Future<Risk?> fetchRisk(String barangayId) async {
     try {
-      final uri =
-          Uri.parse('$baseUrl${AppConstants.riskEndpoint}/$barangayId');
+      final uri = Uri.parse('$baseUrl${AppConstants.riskEndpoint}/$barangayId');
       final response = await _client.get(uri, headers: _headers).timeout(
             Duration(seconds: int.parse(AppConstants.apiTimeout)),
           );

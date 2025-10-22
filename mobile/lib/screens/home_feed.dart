@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/hazard.dart';
 import '../providers/hazard_provider.dart';
 import '../providers/user_provider.dart';
 import '../constants/app_theme.dart';
@@ -27,7 +26,8 @@ class _HomeFeedScreenState extends State<HomeFeedScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _loadData();
+    // Load data after first frame to avoid calling notifyListeners during build
+    WidgetsBinding.instance.addPostFrameCallback((_) => _loadData());
   }
 
   Future<void> _loadData() async {

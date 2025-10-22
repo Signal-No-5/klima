@@ -9,7 +9,8 @@ class NotificationService {
 
   Future<void> initialize() async {
     // Initialize local notifications
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosSettings = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -49,8 +50,8 @@ class NotificationService {
             sound: true,
           );
     } else if (Platform.isAndroid) {
-      final androidImplementation = _localNotifications
-          .resolvePlatformSpecificImplementation<
+      final androidImplementation =
+          _localNotifications.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
       await androidImplementation?.requestNotificationsPermission();
     }
@@ -125,6 +126,23 @@ class NotificationService {
       body,
       notificationDetails,
       payload: payload,
+    );
+  }
+
+  // Public wrapper so other parts of the app can call showNotification
+  Future<void> showNotification({
+    required String title,
+    required String body,
+    String? payload,
+    String? channelId,
+    String? channelName,
+  }) async {
+    await _showNotification(
+      title: title,
+      body: body,
+      payload: payload,
+      channelId: channelId,
+      channelName: channelName,
     );
   }
 

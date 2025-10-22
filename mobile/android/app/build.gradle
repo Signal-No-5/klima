@@ -13,10 +13,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        // Required for some newer libraries that use Java 8+ APIs
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        // Use string value for Kotlin jvmTarget
+        jvmTarget = "1.8"
     }
 
     defaultConfig {
@@ -40,4 +43,15 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Enable desugaring of newer Java language APIs on older Android toolchains
+    // Require 2.1.4+ per AAR metadata (some plugins need newer desugaring libs)
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+}
+// Play Core libraries are needed for deferred components / split install support
+dependencies {
+    implementation 'com.google.android.play:core:1.10.3'
+    implementation 'com.google.android.play:core-ktx:1.8.1'
 }
