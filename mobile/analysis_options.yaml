@@ -21,8 +21,18 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+# Override analyzer severities for some rules that are informational in this
+# project so they don't show up as fatal or noisy in CI runs. You can add or
+# remove rules here as needed. To silence a rule entirely, set it to
+# 'ignore'. To lower severity to a warning, set 'warning'.
+analyzer:
+  errors:
+    avoid_print: warning
+    use_build_context_synchronously: warning
+    deprecated_member_use: warning
+    deprecated_member_use_from_same_package: warning
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
