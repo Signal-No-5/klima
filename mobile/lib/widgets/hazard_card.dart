@@ -33,7 +33,8 @@ class HazardCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: AppTheme.getSeverityColor(hazard.severity).withOpacity(0.1),
+                      color: AppTheme.getSeverityColor(hazard.severity)
+                          .withAlpha((0.1 * 255).round()),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
@@ -42,7 +43,7 @@ class HazardCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  
+
                   // Title and Location
                   Expanded(
                     child: Column(
@@ -134,7 +135,8 @@ class HazardCard extends StatelessWidget {
                 children: [
                   // Severity Chip
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: AppTheme.getSeverityColor(hazard.severity),
                       borderRadius: BorderRadius.circular(4),
@@ -175,7 +177,8 @@ class HazardCard extends StatelessWidget {
                   const SizedBox(width: 12),
 
                   // Time ago
-                  Icon(Icons.access_time, size: 14, color: Colors.grey.shade600),
+                  Icon(Icons.access_time,
+                      size: 14, color: Colors.grey.shade600),
                   const SizedBox(width: 4),
                   Text(
                     hazard.timeAgo,
@@ -265,7 +268,8 @@ class HazardCard extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 4),
-                  Text('${hazard.barangay}, ${hazard.municipality}, ${hazard.province}'),
+                  Text(
+                      '${hazard.barangay}, ${hazard.municipality}, ${hazard.province}'),
                   const SizedBox(height: 16),
                   const Text(
                     'Description',
@@ -276,7 +280,8 @@ class HazardCard extends StatelessWidget {
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Icon(Icons.access_time, size: 16, color: Colors.grey.shade600),
+                      Icon(Icons.access_time,
+                          size: 16, color: Colors.grey.shade600),
                       const SizedBox(width: 4),
                       Text('Reported ${hazard.timeAgo}'),
                     ],

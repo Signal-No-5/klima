@@ -31,11 +31,14 @@ class _HelpScreenState extends State<HelpScreen> {
       _isSubmitting = true;
     });
 
+    ScaffoldMessengerState? messenger;
     try {
       final userProvider = context.read<UserProvider>();
       final reportProvider = context.read<ReportProvider>();
       final locationService = context.read<LocationService>();
       final notificationService = context.read<NotificationService>();
+
+      messenger = ScaffoldMessenger.of(context);
 
       // Get current location
       final location = await locationService.getCurrentLocation();
@@ -80,9 +83,11 @@ class _HelpScreenState extends State<HelpScreen> {
         throw Exception('Failed to send help request');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      if (mounted && messenger != null) {
+        messenger.showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     } finally {
       setState(() {
         _isSubmitting = false;

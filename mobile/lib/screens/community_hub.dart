@@ -28,7 +28,7 @@ class _CommunityHubScreenState extends State<CommunityHubScreen> {
       final apiService = ApiService();
       _posts = await apiService.fetchCommunityPosts();
     } catch (e) {
-      print('Error loading posts: $e');
+      debugPrint('Error loading posts: $e');
     } finally {
       setState(() {
         _isLoading = false;

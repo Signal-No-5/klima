@@ -17,8 +17,8 @@ class KlimaFloatingActionButtons extends StatefulWidget {
       _KlimaFloatingActionButtonsState();
 }
 
-class _KlimaFloatingActionButtonsState
-    extends State<KlimaFloatingActionButtons> with SingleTickerProviderStateMixin {
+class _KlimaFloatingActionButtonsState extends State<KlimaFloatingActionButtons>
+    with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -133,16 +133,19 @@ class _KlimaFloatingActionButtonsState
       mainAxisSize: MainAxisSize.min,
       children: [
         Material(
-          color: Colors.white,
+          // Use theme surface color so label contrasts correctly in dark mode
+          color: Theme.of(context).colorScheme.surface,
           elevation: 4,
           borderRadius: BorderRadius.circular(20),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
+                // Use onSurface so it contrasts with surface in both themes
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),

@@ -52,7 +52,7 @@ class _EvacuationRouteScreenState extends State<EvacuationRouteScreen> {
         _selectedSafeZone = _findNearestSafeZone();
       }
     } catch (e) {
-      print('Error loading data: $e');
+      debugPrint('Error loading data: $e');
     } finally {
       setState(() {
         _isLoading = false;
@@ -225,7 +225,8 @@ class _EvacuationRouteScreenState extends State<EvacuationRouteScreen> {
           children: [
             _buildInfoChip(Icons.place, _formatDistance(distance)),
             const SizedBox(width: 8),
-            _buildInfoChip(Icons.people, '${zone.currentOccupancy}/${zone.capacity}'),
+            _buildInfoChip(
+                Icons.people, '${zone.currentOccupancy}/${zone.capacity}'),
             const SizedBox(width: 8),
             if (zone.elevation != null)
               _buildInfoChip(Icons.terrain, '${zone.elevation}m'),

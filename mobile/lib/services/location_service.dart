@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import '../models/user_location.dart';
@@ -61,7 +62,7 @@ class LocationService {
           province = place.administrativeArea;
         }
       } catch (e) {
-        print('Error getting address: $e');
+        debugPrint('Error getting address: $e');
       }
 
       _currentUserLocation = UserLocation(
@@ -78,7 +79,7 @@ class LocationService {
 
       return _currentUserLocation;
     } catch (e) {
-      print('Error getting location: $e');
+      debugPrint('Error getting location: $e');
       // Return mock location for Calumpit for development
       return UserLocation(
         coordinates: const LatLng(14.9167, 120.7667),
@@ -131,7 +132,7 @@ class LocationService {
         timestamp: DateTime.now(),
       );
     } catch (e) {
-      print('Error updating location: $e');
+      debugPrint('Error updating location: $e');
     }
   }
 

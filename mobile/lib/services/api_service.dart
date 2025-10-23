@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 import '../models/hazard.dart';
@@ -50,7 +51,7 @@ class ApiService {
         throw Exception('Failed to load hazards: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching hazards: $e');
+      debugPrint('Error fetching hazards: $e');
       // Return mock data for development
       return _getMockHazards();
     }
@@ -76,7 +77,7 @@ class ApiService {
         throw Exception('Failed to submit report: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error submitting report: $e');
+      debugPrint('Error submitting report: $e');
       // Return the report as-is for offline mode
       return report;
     }
@@ -106,7 +107,7 @@ class ApiService {
         throw Exception('Failed to load reports: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching reports: $e');
+      debugPrint('Error fetching reports: $e');
       return [];
     }
   }
@@ -125,7 +126,7 @@ class ApiService {
         throw Exception('Failed to load risk data: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching risk: $e');
+      debugPrint('Error fetching risk: $e');
       return null;
     }
   }
@@ -154,7 +155,7 @@ class ApiService {
         throw Exception('Failed to load safe zones: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching safe zones: $e');
+      debugPrint('Error fetching safe zones: $e');
       return _getMockSafeZones();
     }
   }
@@ -182,7 +183,7 @@ class ApiService {
             'Failed to load community posts: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching community posts: $e');
+      debugPrint('Error fetching community posts: $e');
       return _getMockCommunityPosts();
     }
   }

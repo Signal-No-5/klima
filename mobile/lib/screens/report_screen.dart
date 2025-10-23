@@ -33,6 +33,7 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 
   Future<void> _pickImage(ImageSource source) async {
+    ScaffoldMessengerState? messenger = ScaffoldMessenger.of(context);
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(
@@ -48,9 +49,11 @@ class _ReportScreenState extends State<ReportScreen> {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error picking image: $e')),
-      );
+      if (mounted) {
+        messenger.showSnackBar(
+          SnackBar(content: Text('Error picking image: $e')),
+        );
+      }
     }
   }
 
@@ -85,7 +88,9 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 
   Future<void> _submitReport() async {
-    if (!_formKey.currentState!.validate()) return;
+    // Be defensive: currentState may be null if the Form isn't mounted yet.
+    final formState = _formKey.currentState;
+    if (formState == null || !formState.validate()) return;
     if (_selectedHazardType == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please select a hazard type')),
@@ -97,11 +102,15 @@ class _ReportScreenState extends State<ReportScreen> {
       _isSubmitting = true;
     });
 
+    ScaffoldMessengerState? messenger;
     try {
       final userProvider = context.read<UserProvider>();
       final reportProvider = context.read<ReportProvider>();
       final locationService = context.read<LocationService>();
       final notificationService = context.read<NotificationService>();
+
+      // Capture messenger to avoid using context across async gaps.
+      messenger = ScaffoldMessenger.of(context);
 
       // Get current location
       final location = await locationService.getCurrentLocation();
@@ -137,16 +146,17 @@ class _ReportScreenState extends State<ReportScreen> {
         await notificationService.showReportConfirmation();
 
         // Show success dialog
-        if (mounted) {
-          _showSuccessDialog();
-        }
+        if (!mounted) return;
+        _showSuccessDialog();
       } else {
         throw Exception('Failed to submit report');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      if (mounted && messenger != null) {
+        messenger.showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     } finally {
       setState(() {
         _isSubmitting = false;

@@ -18,9 +18,12 @@ class _SafeStatusScreenState extends State<SafeStatusScreen> {
       _isUpdating = true;
     });
 
+    ScaffoldMessengerState? messenger;
     try {
       final userProvider = context.read<UserProvider>();
       final notificationService = context.read<NotificationService>();
+
+      messenger = ScaffoldMessenger.of(context);
 
       await userProvider.updateSafeStatus(isSafe);
 
@@ -64,9 +67,11 @@ class _SafeStatusScreenState extends State<SafeStatusScreen> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      if (mounted && messenger != null) {
+        messenger.showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
     } finally {
       setState(() {
         _isUpdating = false;
@@ -118,7 +123,8 @@ class _SafeStatusScreenState extends State<SafeStatusScreen> {
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: isSafe ? Colors.green.shade50 : Colors.orange.shade50,
+                    color:
+                        isSafe ? Colors.green.shade50 : Colors.orange.shade50,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: isSafe ? Colors.green : Colors.orange,
@@ -157,7 +163,8 @@ class _SafeStatusScreenState extends State<SafeStatusScreen> {
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
-                  onPressed: _isUpdating ? null : () => _updateSafeStatus(false),
+                  onPressed:
+                      _isUpdating ? null : () => _updateSafeStatus(false),
                   icon: const Icon(Icons.warning),
                   label: const Text('Need Assistance'),
                   style: OutlinedButton.styleFrom(

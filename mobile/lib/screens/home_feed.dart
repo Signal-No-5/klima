@@ -240,7 +240,7 @@ class _HomeFeedScreenState extends State<HomeFeedScreen>
             children: [
               Container(
                 padding: const EdgeInsets.all(16),
-                color: AppTheme.primaryBlue.withOpacity(0.1),
+                color: AppTheme.primaryBlue.withAlpha((0.1 * 255).round()),
                 child: Row(
                   children: [
                     const Icon(Icons.location_on, color: AppTheme.primaryBlue),

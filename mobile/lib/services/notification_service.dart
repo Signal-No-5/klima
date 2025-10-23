@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io' show Platform;
 
@@ -35,7 +36,7 @@ class NotificationService {
       _firebaseMessaging = FirebaseMessaging.instance;
       await _setupFirebaseMessaging();
     } catch (e) {
-      print('Firebase Messaging not available: $e');
+      debugPrint('Firebase Messaging not available: $e');
     }
   }
 
@@ -69,16 +70,16 @@ class NotificationService {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      debugPrint('User granted permission');
     }
 
     // Get FCM token
     String? token = await _firebaseMessaging!.getToken();
-    print('FCM Token: $token');
+    debugPrint('FCM Token: $token');
 
     // Handle foreground messages
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Got a message whilst in the foreground!');
+      debugPrint('Got a message whilst in the foreground!');
       _showNotification(
         title: message.notification?.title ?? 'KLIMA Alert',
         body: message.notification?.body ?? '',
@@ -88,7 +89,7 @@ class NotificationService {
 
     // Handle when user taps on notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('Message clicked!');
+      debugPrint('Message clicked!');
       // Navigate to specific screen based on message data
     });
   }
@@ -147,7 +148,7 @@ class NotificationService {
   }
 
   void _onNotificationTap(NotificationResponse response) {
-    print('Notification tapped: ${response.payload}');
+    debugPrint('Notification tapped: ${response.payload}');
     // Handle navigation based on payload
   }
 
@@ -243,7 +244,7 @@ class NotificationService {
   Future<void> scheduleDailyReminder() async {
     // This would use scheduled notifications
     // Implementation depends on the specific plugin version
-    print('Daily reminder scheduled');
+    debugPrint('Daily reminder scheduled');
   }
 
   String _getHazardIcon(String hazardType) {

@@ -29,7 +29,7 @@ class _GoBagScreenState extends State<GoBagScreen> {
       items = MockData.getDefaultGoBagItems();
       await StorageService.saveGoBagItems(items);
     }
-    
+
     setState(() {
       _items = items;
       _groupItems();
@@ -48,16 +48,18 @@ class _GoBagScreenState extends State<GoBagScreen> {
 
   Future<void> _toggleItem(GoBagItem item) async {
     final updatedItem = item.copyWith(isChecked: !item.isChecked);
+    final userProvider = context.read<UserProvider>();
+    final messenger = ScaffoldMessenger.of(context);
+
     await StorageService.updateGoBagItem(updatedItem);
     await _loadItems();
-    
+
     // Check if all items are completed
     if (_items.every((i) => i.isChecked)) {
-      final userProvider = context.read<UserProvider>();
       await userProvider.addBadge('ready_ka_na');
-      
+
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        messenger.showSnackBar(
           const SnackBar(
             content: Text('🎒 Badge Earned: Ready Ka Na!'),
             backgroundColor: Colors.green,
@@ -170,7 +172,8 @@ class _GoBagScreenState extends State<GoBagScreen> {
             fontSize: 16,
           ),
         ),
-        subtitle: Text('${items.where((i) => i.isChecked).length} / ${items.length} items'),
+        subtitle: Text(
+            '${items.where((i) => i.isChecked).length} / ${items.length} items'),
         children: items.map((item) {
           return CheckboxListTile(
             title: Text(item.name),
