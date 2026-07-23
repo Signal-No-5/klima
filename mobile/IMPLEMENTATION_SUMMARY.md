@@ -170,7 +170,7 @@ A complete, production-ready Flutter mobile application for KLIMA with all reque
 The app is **immediately runnable** with these simple steps:
 
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 flutter pub get
 flutter run
 ```

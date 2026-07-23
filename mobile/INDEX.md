@@ -39,7 +39,7 @@ This directory contains the complete Flutter mobile application for KLIMA - The 
 
 2. **Navigate to the mobile directory**
    ```bash
-   cd /Users/adrielmagalona/Desktop/klima/mobile
+   cd mobile
    ```
 
 3. **Install dependencies**

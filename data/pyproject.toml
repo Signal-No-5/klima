@@ -1,0 +1,10 @@
+[project]
+name = "klima-data"
+version = "0.0.0"
+description = "Scaffold only — ETL lives in ../web/api/pipeline"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+# Intentionally empty: do not re-implement the pipeline here.

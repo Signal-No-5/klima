@@ -1,6 +1,11 @@
 class AppConstants {
   // API Configuration
-  static const String apiBaseUrl = 'http://localhost:8000'; // Change to your API URL
+  // Android emulator → host machine loopback. Override at build time:
+  //   flutter run --dart-define=API_BASE_URL=http://192.168.x.x:8000
+  static const String apiBaseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://10.0.2.2:8000',
+  );
   static const String apiTimeout = '30';
   
   // API Endpoints

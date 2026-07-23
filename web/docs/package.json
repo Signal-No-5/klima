@@ -1,0 +1,15 @@
+{
+  "name": "klima-docs",
+  "private": true,
+  "version": "0.0.0",
+  "description": "VitePress scaffold for Klima docs (stub)",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

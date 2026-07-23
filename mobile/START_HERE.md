@@ -22,13 +22,13 @@ A fully functional disaster preparedness and response platform with:
 
 ### Option 1: Quick Start Script
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 ./start.sh
 ```
 
 ### Option 2: Manual Start
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 flutter pub get
 flutter run
 ```

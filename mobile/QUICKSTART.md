@@ -3,7 +3,7 @@
 ## Instant Setup (3 steps)
 
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 flutter pub get
 flutter run
 ```
@@ -132,7 +132,7 @@ Want to customize?
 Run this to check everything:
 ```bash
 flutter doctor -v
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 flutter pub get
 flutter analyze
 ```

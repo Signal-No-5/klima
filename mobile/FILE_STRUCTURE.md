@@ -143,7 +143,7 @@ klima/mobile/
 ## 📱 Running the App
 
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 ./start.sh
 ```
 

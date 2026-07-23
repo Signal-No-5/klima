@@ -124,7 +124,7 @@ mobile/
 
 **3-Step Launch:**
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 flutter pub get
 flutter run
 ```
@@ -234,7 +234,7 @@ With Backend:
 
 **Immediate (Today):**
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 flutter pub get
 flutter run
 ```
@@ -285,7 +285,7 @@ flutter run
 
 ### Start Now:
 ```bash
-cd /Users/adrielmagalona/Desktop/klima/mobile
+cd mobile
 ./start.sh
 ```
 
