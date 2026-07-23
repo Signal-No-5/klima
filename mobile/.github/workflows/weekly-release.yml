@@ -1,0 +1,66 @@
+name: Weekly Release
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # every Monday at 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  create-weekly-release:
+    # Environment variables you can set locally when running `act` or in your runner.
+    # GIT_USER_NAME - git user.name to set (default: github-actions[bot])
+    # GIT_USER_EMAIL - git user.email to set (default: 41898282+github-actions[bot]@users.noreply.github.com)
+    # CREATE_RELEASE - set to 'true' if you want the workflow to record a release tag (default: 'false')
+    env:
+      GIT_USER_NAME: ''
+      GIT_USER_EMAIL: ''
+      CREATE_RELEASE: 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          # honor env overrides when testing locally with `act`
+          git config user.name "${GIT_USER_NAME:-github-actions[bot]}"
+          git config user.email "${GIT_USER_EMAIL:-41898282+github-actions[bot]@users.noreply.github.com}"
+
+      - name: Check for changes since last weekly tag
+        id: changes
+        run: |
+          LAST_TAG=$(git tag --list "weekly-*" --sort=-v:refname | head -n1)
+          echo "Last weekly tag: $LAST_TAG"
+          if [ -z "$LAST_TAG" ]; then
+            # no weekly tag exists yet, consider full history
+            echo "changes=true" > result.txt
+          else
+            # check commits since last tag
+            COUNT=$(git rev-list ${LAST_TAG}..HEAD --count)
+            echo "commits_since=$COUNT"
+            if [ "$COUNT" -gt 0 ]; then
+              echo "changes=true" > result.txt
+            else
+              echo "changes=false" > result.txt
+            fi
+          fi
+          cat result.txt
+          echo "result=$(cat result.txt)" >> $GITHUB_OUTPUT
+
+      - name: Create weekly release (local tag) if changes
+        if: steps.changes.outputs.result == 'changes=true'
+        run: |
+          WEEK=$(date -u +"%Y.%m.%d")
+          TAG="weekly-${WEEK}"
+          # create a local tag so you can test tagging behavior with `act` without network
+          git tag "$TAG"
+          echo "Created local tag: $TAG"
+          # write tag to an output file so it can be inspected in the workflow run
+          echo "$TAG" > release_tag.txt
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          # NOTE: pushing to origin or calling GitHub APIs is intentionally omitted here so
+          # the workflow is safe to run locally with `act`. If you want remote behavior,
+          # set CREATE_RELEASE=true in the environment and run a follow-up script that does
+          # `git push origin $TAG` and creates a GitHub Release using your preferred method.
