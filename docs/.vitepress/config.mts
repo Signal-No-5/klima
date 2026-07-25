@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Klima",
   description:
-    "Weather-resilience monorepo — getting started, layout, and API overview",
+    "Weather-resilience monorepo — getting started, layout, API overview, and deployments",
   // Agent planning markdown stays in-repo but is not part of the product docs site
   // (avoids Vue parsing quirks in handoff templates, and keeps nav focused).
   srcExclude: ["mvp/**", "handoffs/**"],
@@ -14,6 +14,7 @@ export default defineConfig({
       { text: "Layout", link: "/layout" },
       { text: "API", link: "/api/overview" },
       { text: "Schema", link: "/schema" },
+      { text: "Deploy", link: "/deploy" },
     ],
     sidebar: [
       {
@@ -21,6 +22,7 @@ export default defineConfig({
         items: [
           { text: "Home", link: "/" },
           { text: "Getting started", link: "/getting-started" },
+<<<<<<< HEAD
           { text: "Monorepo layout", link: "/layout" },
         ],
       },
@@ -39,6 +41,7 @@ export default defineConfig({
         items: [
           { text: "API overview", link: "/api/overview" },
           { text: "Schema / contracts", link: "/schema" },
+          { text: "Deployments", link: "/deploy" },
         ],
       },
     ],

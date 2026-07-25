@@ -27,4 +27,5 @@ Override at build time: `flutter run --dart-define=API_BASE_URL=...`
 
 ## Layout
 
-New to the repo? Read [Monorepo layout](/layout) next.
+New to the repo? Read [Monorepo layout](/layout) next. To ship it, see
+[Deployments](/deploy).

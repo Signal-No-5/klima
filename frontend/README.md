@@ -56,3 +56,9 @@ Do not invent parallel TypeScript shapes.
 - **Paths:** `backend/app/api/v1/endpoints/klima.py` (also mounted at root)
 - **Runtime OpenAPI:** `GET {API}/openapi.json` after backend is running
 - **Field checklist:** [`../docs/mvp/schema-parity.md`](../docs/mvp/schema-parity.md)
+
+## Deploy
+
+Production target: **Vercel**. Set the project Root Directory to `frontend` so
+`vercel.json` is the only config loaded. Env: `NEXT_PUBLIC_KLIMA_API_URL` (see
+`.env.example`). Full contract: [`../deploy/README.md`](../deploy/README.md).

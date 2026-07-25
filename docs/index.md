@@ -2,7 +2,7 @@
 
 Hackathon weather-resilience platform: citizen reporting (Flutter), FastAPI backend + bronze pipeline, LGU dashboard stub, and this VitePress site.
 
-This docs site covers **local development**, the **flat monorepo layout**, and the **API surface that actually exists** in `backend/`. It does not invent product features.
+This docs site covers **local development**, the **flat monorepo layout**, the **API surface that actually exists** in `backend/`, and the **deploy contract**. It does not invent product features — see the repo root [`STATUS.md`](https://github.com/Signal-No-5/klima/blob/HEAD/STATUS.md) for what is stub versus real.
 
 ## Start here
 

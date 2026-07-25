@@ -65,6 +65,19 @@ uv sync
 .venv/bin/python -m pipeline pagasa_warnings --offline
 ```
 
+## Deploy
+
+| Surface | Primary host | Config |
+|---------|--------------|--------|
+| Backend | Fly.io | `backend/Dockerfile`, `backend/fly.toml` |
+| Frontend | Vercel | `frontend/vercel.json` (Root Directory `frontend`) |
+| Docs | Vercel | `docs/vercel.json` (Root Directory `docs`) |
+| Local API | Compose | `docker compose up --build backend` |
+
+Full contract: [`deploy/README.md`](./deploy/README.md). Vercel loads **one**
+`vercel.json` per project Root Directory (no root+nested merge). Backend is
+**not** on Vercel — the legacy Python `builds`/`routes` config was removed.
+
 ## MVP
 
 See [`docs/mvp/README.md`](./docs/mvp/README.md) and epic [#2](https://github.com/Signal-No-5/klima/issues/2).

@@ -1,6 +1,6 @@
 # Backend quickstart
 
-FastAPI service in `backend/` plus DuckDB pipeline under `backend/pipeline/`.
+FastAPI service in `backend/`. It reads the DuckDB warehouse that the [`data/` package](/guide/data) owns.
 
 Package: `backend/pyproject.toml` (`name = "api"`, Python `>=3.12`). Dependencies locked via `uv.lock`.
 
@@ -42,13 +42,11 @@ uv run pytest tests/test_klima_endpoints.py -q
 
 ## Pipeline (PAGASA bronze)
 
-Canonical ETL lives in `backend/pipeline/` (not under `data/` yet — see [#8](https://github.com/Signal-No-5/klima/issues/8)).
+Canonical ETL lives in the `data/` package (#8). `backend/scripts/run_pipeline.py` is a thin wrapper kept for convenience.
 
 ```bash
-cd backend
-uv run python scripts/run_pipeline.py pagasa_warnings
-# or list assets:
-uv run python scripts/run_pipeline.py --list
+cd data
+.venv/bin/python -m pipeline pagasa_warnings --offline
 ```
 
 Known asset today: `pagasa_warnings` → `pipeline.refinery.bronze.pagasa_warnings`.
@@ -56,9 +54,9 @@ Known asset today: `pagasa_warnings` → `pipeline.refinery.bronze.pagasa_warnin
 DuckDB files (when produced) are expected under `backend/data/`:
 
 ```text
-backend/data/bronze.duckdb
-backend/data/silver.duckdb
-backend/data/gold.duckdb
+data/warehouse/bronze.duckdb
+data/warehouse/silver.duckdb
+data/warehouse/gold.duckdb
 ```
 
 ## What is implemented vs not

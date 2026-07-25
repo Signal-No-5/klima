@@ -26,5 +26,10 @@ pnpm docs:build
 
 ## Status
 
-- Present: VitePress build with layout, quickstarts, API surface from real routes.
-- Thin / deferred: operator runbooks, deployment guides, generated OpenAPI embed (link out to running `/docs` instead).
+- Present: VitePress build with layout, quickstarts, API surface from real routes, deploy page.
+- Thin / deferred: operator runbooks, generated OpenAPI embed (link out to running `/docs` instead).
+
+## Deploy
+
+Production docs target: Vercel with Root Directory `docs` (see `vercel.json`).
+Operator SoT in-repo: `deploy/README.md` — summary on this site: [Deployments](/deploy).

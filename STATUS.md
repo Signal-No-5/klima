@@ -11,6 +11,7 @@ Honest inventory of what exists in this monorepo versus what was promised in hac
 | **`frontend/`** | MVP LGU dashboard: hazards, reports, risk, safe zones via live API (`NEXT_PUBLIC_KLIMA_API_URL`); explicit empty/error states | Map UI, triage actions, auth | Full risk map CMS, report workflow, occupancy ops |
 | **`schema/`** | Pydantic MVP entities + JSON Schema export; backend re-exports | Flutter still parallel Dart models (parity doc); frontend hand-mirrors TS from export | Generated Dart/TS clients from schema |
 | **Community / risk / safe zones** | Fixture-backed API responses matching mobile models (schema-validated) | Persistence beyond in-memory reports | Verified geospatial risk model, live safe-zone CMS |
+| **Deploy** | Fly (`backend/`), Vercel (`frontend/` + `docs/`), Compose, path-filtered CI (#9) | Hosts/projects not provisioned yet | Production CD secrets, durable DB volume |
 
 ## Legend
 

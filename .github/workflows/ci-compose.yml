@@ -1,0 +1,24 @@
+name: Compose config
+
+on:
+  pull_request:
+    paths:
+      - "docker-compose.yml"
+      - "backend/Dockerfile"
+      - "deploy/**"
+      - ".github/workflows/ci-compose.yml"
+  push:
+    branches: [main, feat/mvp-flatten]
+    paths:
+      - "docker-compose.yml"
+      - "backend/Dockerfile"
+      - "deploy/**"
+      - ".github/workflows/ci-compose.yml"
+
+jobs:
+  config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate compose file
+        run: docker compose config --quiet

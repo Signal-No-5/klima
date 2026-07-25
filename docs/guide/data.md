@@ -1,52 +1,52 @@
 # Data / ETL
 
-`data/` is a **pointer package**, not a second pipeline.
+`data/` is the **canonical ETL package** (`klima-data`) and owns the DuckDB warehouse. There is exactly one implementation of the pipeline — the backend reads the warehouse, it does not define it.
 
-From `data/pyproject.toml`:
-
-- `name = "klima-data"`
-- `dependencies = []`
-- Description: scaffold only — ETL lives in `../backend/pipeline`
-
-## Where ETL actually runs
-
-All bronze (and related DuckDB) wiring lives in:
-
-```text
-backend/pipeline/
-```
-
-Run the only registered bronze asset from the API package:
+## Install
 
 ```bash
-cd backend
-uv run python scripts/run_pipeline.py pagasa_warnings
+cd data
+uv sync
 ```
 
-List known assets:
+## Run the bronze ingest
+
+Prefer the venv interpreter if `uv run` misbehaves on your machine:
 
 ```bash
-cd backend
-uv run python scripts/run_pipeline.py --list
+# Offline / fixture mode (no live PAGASA access) — the MVP-verified path
+.venv/bin/python -m pipeline pagasa_warnings --offline
+
+# Console script, after sync
+.venv/bin/klima-etl pagasa_warnings --offline
+
+# Live PAGASA needs network; fall back to fixtures on failure
+.venv/bin/python -m pipeline pagasa_warnings --offline-fallback
 ```
 
-Today that list is just `pagasa_warnings`.
+Today the only registered asset is `pagasa_warnings`.
 
 ## DuckDB files
 
-When the pipeline has been run, DuckDB files used by the API are under:
-
 ```text
-backend/data/bronze.duckdb
-backend/data/silver.duckdb
-backend/data/gold.duckdb
+data/warehouse/bronze.duckdb
+data/warehouse/silver.duckdb
+data/warehouse/gold.duckdb
 ```
 
-Silver/gold **orchestration and schedules** are not a finished product surface; do not assume a full medallion job graph.
+`backend/` reads `data/warehouse/bronze.duckdb` and falls back to fixtures when it is missing, empty, or unreadable.
 
-## Why `data/` exists
+Silver/gold transforms are empty stages, and there is no scheduler — do not assume a full medallion job graph.
 
-Historical layout kept a top-level `data/` name. Duplicating the pipeline here would drift. Issue [#8](https://github.com/Signal-No-5/klima/issues/8) tracks moving ETL ownership into a real `data/` product boundary.
+## Layout
+
+```text
+data/
+├── pipeline/           # installable package (asset, CLI, refinery, config)
+├── fixtures/           # offline PAGASA ActiveWarning JSON
+├── warehouse/          # DuckDB bronze/silver/gold
+└── pyproject.toml      # klima-data (uv)
+```
 
 ## Related
 
