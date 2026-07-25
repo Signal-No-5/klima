@@ -27,7 +27,7 @@ klima/
 - [ ] Frontend talks to live backend
 - [ ] Docs site builds with getting-started + API overview
 - [ ] Data owns ETL; bronze ingest runnable
-- [ ] `schema/` is SoT for hazard/report/safezone/community
+- [x] `schema/` is SoT for hazard/report/safezone/community/risk (#4)
 - [ ] README + STATUS match reality
 - [ ] Handoffs exist for every workstream issue
 

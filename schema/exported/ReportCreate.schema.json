@@ -1,0 +1,146 @@
+{
+  "description": "Citizen report / help / safe-status submission body.",
+  "properties": {
+    "barangay": {
+      "default": "",
+      "title": "Barangay",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "hazard_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hazard Type"
+    },
+    "id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Id"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Url"
+    },
+    "image_urls": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Urls"
+    },
+    "latitude": {
+      "default": 0.0,
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "default": 0.0,
+      "title": "Longitude",
+      "type": "number"
+    },
+    "municipality": {
+      "default": "",
+      "title": "Municipality",
+      "type": "string"
+    },
+    "responded_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Responded At"
+    },
+    "responder_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Responder Notes"
+    },
+    "status": {
+      "default": "pending",
+      "title": "Status",
+      "type": "string"
+    },
+    "timestamp": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Timestamp"
+    },
+    "title": {
+      "default": "",
+      "title": "Title",
+      "type": "string"
+    },
+    "type": {
+      "default": "hazard",
+      "title": "Type",
+      "type": "string"
+    },
+    "user_id": {
+      "default": "",
+      "title": "User Id",
+      "type": "string"
+    },
+    "user_name": {
+      "default": "Anonymous",
+      "title": "User Name",
+      "type": "string"
+    }
+  },
+  "title": "ReportCreate",
+  "type": "object"
+}

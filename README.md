@@ -14,7 +14,7 @@ This repository is a **single flat monorepo**.
 | `frontend/` | LGU web dashboard | **Scaffold / stub** |
 | `docs/` | VitePress docs + MVP handoffs | Present (scaffold content) |
 | `data/` | Pointer package for ETL | **Scaffold / stub** (#8) |
-| `schema/` | Central contracts | **Planned** (#4) |
+| `schema/` | Central contracts (`klima_schema`) | Present (#4) — see [`schema/README.md`](./schema/README.md) |
 
 See [`STATUS.md`](./STATUS.md) for present vs stub vs promised.
 
@@ -34,7 +34,17 @@ uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ```bash
 cd backend
-uv run pytest tests/test_klima_endpoints.py -q
+# Prefer the repo venv if `uv run` resolves the wrong interpreter:
+.venv/bin/python -m pytest tests/test_klima_endpoints.py -q
+```
+
+## Schema contracts
+
+Central MVP models live in [`schema/`](./schema/). Backend re-exports them from `app.schemas.klima`. Field parity for Flutter / frontend: [`docs/mvp/schema-parity.md`](./docs/mvp/schema-parity.md).
+
+```bash
+cd schema
+../backend/.venv/bin/python -m klima_schema.export --out exported
 ```
 
 ## MVP

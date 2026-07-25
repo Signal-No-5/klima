@@ -1,0 +1,79 @@
+{
+  "description": "Barangay-level composite risk scores.",
+  "properties": {
+    "active_warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Active Warnings",
+      "type": "array"
+    },
+    "barangay_id": {
+      "title": "Barangay Id",
+      "type": "string"
+    },
+    "barangay_name": {
+      "title": "Barangay Name",
+      "type": "string"
+    },
+    "exposure_score": {
+      "title": "Exposure Score",
+      "type": "number"
+    },
+    "hazard_breakdown": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Hazard Breakdown",
+      "type": "object"
+    },
+    "hazard_score": {
+      "title": "Hazard Score",
+      "type": "number"
+    },
+    "last_updated": {
+      "format": "date-time",
+      "title": "Last Updated",
+      "type": "string"
+    },
+    "municipality": {
+      "title": "Municipality",
+      "type": "string"
+    },
+    "risk_level": {
+      "title": "Risk Level",
+      "type": "string"
+    },
+    "risk_score": {
+      "title": "Risk Score",
+      "type": "number"
+    },
+    "safe_residents": {
+      "default": 0,
+      "title": "Safe Residents",
+      "type": "integer"
+    },
+    "total_population": {
+      "default": 0,
+      "title": "Total Population",
+      "type": "integer"
+    },
+    "vulnerability_score": {
+      "title": "Vulnerability Score",
+      "type": "number"
+    }
+  },
+  "required": [
+    "barangay_id",
+    "barangay_name",
+    "municipality",
+    "hazard_score",
+    "exposure_score",
+    "vulnerability_score",
+    "risk_score",
+    "risk_level",
+    "last_updated"
+  ],
+  "title": "RiskOut",
+  "type": "object"
+}

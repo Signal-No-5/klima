@@ -10,7 +10,7 @@ Honest inventory of what exists in this monorepo versus what was promised in hac
 | **`data/`** | README + `pyproject.toml` pointing at `backend/pipeline` | Empty product surface | Standalone ETL package / published datasets |
 | **`docs/`** | VitePress scaffold + MVP handoffs | Content beyond getting-started | Full operator + API docs site |
 | **`frontend/`** | Minimal Next.js stub page | No real LGU workflows | Live risk map, report triage, occupancy |
-| **`schema/`** | — | Planned (#4) | Shared contracts across backend/mobile/frontend |
+| **`schema/`** | Pydantic MVP entities + JSON Schema export; backend re-exports | Flutter still parallel Dart models (parity doc) | Generated Dart/TS clients from schema |
 | **Community / risk / safe zones** | Fixture-backed API responses matching mobile models | Persistence beyond in-memory reports | Verified geospatial risk model, live safe-zone CMS |
 
 ## Legend

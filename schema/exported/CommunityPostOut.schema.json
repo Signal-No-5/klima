@@ -1,0 +1,89 @@
+{
+  "description": "LGU / barangay / NGO community announcement.",
+  "properties": {
+    "author_name": {
+      "title": "Author Name",
+      "type": "string"
+    },
+    "author_type": {
+      "default": "citizen",
+      "title": "Author Type",
+      "type": "string"
+    },
+    "contact_info": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Contact Info"
+    },
+    "content": {
+      "title": "Content",
+      "type": "string"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Url"
+    },
+    "is_pinned": {
+      "default": false,
+      "title": "Is Pinned",
+      "type": "boolean"
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tags"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "views": {
+      "default": 0,
+      "title": "Views",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "content",
+    "author_name",
+    "timestamp"
+  ],
+  "title": "CommunityPostOut",
+  "type": "object"
+}

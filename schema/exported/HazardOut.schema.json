@@ -1,0 +1,110 @@
+{
+  "description": "Active or reported hazard event (feed item).",
+  "properties": {
+    "barangay": {
+      "default": "",
+      "title": "Barangay",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Url"
+    },
+    "is_verified": {
+      "default": false,
+      "title": "Is Verified",
+      "type": "boolean"
+    },
+    "latitude": {
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "title": "Longitude",
+      "type": "number"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Metadata"
+    },
+    "municipality": {
+      "default": "",
+      "title": "Municipality",
+      "type": "string"
+    },
+    "province": {
+      "default": "",
+      "title": "Province",
+      "type": "string"
+    },
+    "reports": {
+      "default": 1,
+      "title": "Reports",
+      "type": "integer"
+    },
+    "severity": {
+      "default": "moderate",
+      "title": "Severity",
+      "type": "string"
+    },
+    "source": {
+      "default": "citizen",
+      "title": "Source",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "type": {
+      "title": "Type",
+      "type": "string"
+    },
+    "upvotes": {
+      "default": 0,
+      "title": "Upvotes",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "title",
+    "description",
+    "latitude",
+    "longitude",
+    "timestamp"
+  ],
+  "title": "HazardOut",
+  "type": "object"
+}
