@@ -1,20 +1,28 @@
 # Klima
 
-Hackathon weather resilience platform: real-time alerts, community reporting, LGU dashboards, and data pipelines.
+Klima is a flat monorepo assembled from the five original
+`Signal-No-5` repositories. The component trees are vendored in-tree, not
+included as Git submodules.
 
-This repository is a **single monorepo**. Packages live in-tree (not git submodules).
+## Layout and provenance
 
-## Layout
+| Path | Source repository | Imported revision |
+|------|-------------------|-------------------|
+| `backend/` | `Signal-No-5/klima-api` | `main` (`d9daa6f`) |
+| `frontend/` | `Signal-No-5/klima-lgu-dashboard` | `main` (`995fd9d`) |
+| `data/` | `Signal-No-5/klima-data` | `main` (`8a45435`) |
+| `mobile/` | `Signal-No-5/klima-mobile` | `main` (`6551d32`) |
+| `docs/` | `Signal-No-5/klima-docs` | `main` (`103e690`) |
 
-| Path | Role |
-|------|------|
-| `mobile/` | Flutter citizen/responder app (from `klima-mobile`) |
-| `web/api/` | Backend API + pipeline (from `klima-api`) |
-| `web/dashboard/` | LGU web dashboard (from `klima-lgu-dashboard`) |
-| `web/docs/` | VitePress docs site (from `klima-docs`) |
-| `data/` | ETL / data pipelines (from `klima-data`) |
+Each directory is an exact snapshot of its source repository at the revision
+shown above.
 
-## Notes
+## Current source state
 
-- Historical split repos under `Signal-No-5/*` remain for reference; **this repo is the source of truth**.
-- `mobile` previously pointed at a missing `klima-frontend` submodule; content is taken from `klima-mobile`.
+- `backend/` contains the FastAPI API and its existing pipeline.
+- `mobile/` contains the Flutter application.
+- `frontend/`, `data/`, and `docs/` currently contain only the files tracked by
+  their source repositories (`.gitignore` and `LICENSE`). They are intentionally
+  not replaced with generated scaffolds.
+
+Future work should happen in this monorepo after this import is accepted.
