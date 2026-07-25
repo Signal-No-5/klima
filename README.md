@@ -12,7 +12,7 @@ This repository is a **single flat monorepo**.
 | `backend/` | FastAPI backend + DuckDB pipeline | Present |
 | `backend/pipeline/` | ETL assets (e.g. PAGASA bronze) | Present — **canonical ETL** until #8 moves it to `data/` |
 | `frontend/` | LGU web dashboard | Present (MVP #6) — live API views |
-| `docs/` | VitePress docs + MVP handoffs | Present (scaffold content) |
+| `docs/` | VitePress docs + MVP handoffs | Present (MVP getting-started / layout / API) |
 | `data/` | Pointer package for ETL | **Scaffold / stub** (#8) |
 | `schema/` | Central contracts (`klima_schema`) | Present (#4) — see [`schema/README.md`](./schema/README.md) |
 
