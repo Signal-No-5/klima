@@ -1,0 +1,773 @@
+openapi: 3.0.3
+info:
+  title: PAGASA Website API (unofficial)
+  version: 0.1.0-reveng-2026-07-25
+  description: |
+    Unofficial OpenAPI description of JSON endpoints used by
+    https://www.pagasa.dost.gov.ph — reverse-engineered for Klima ingest.
+
+    **Not endorsed by PAGASA/DOST.** Schemas are observational and may drift.
+    Prefer POST; GET on these paths usually returns an HTML 404 page with HTTP 200.
+  contact:
+    name: Klima / Signal-No-5
+  license:
+    name: Unofficial reverse-engineering notes
+    url: https://github.com/Signal-No-5/klima/blob/main/docs/pagasa/README.md
+
+externalDocs:
+  description: Human-readable reverse-engineering notes
+  url: https://github.com/Signal-No-5/klima/blob/main/docs/pagasa/README.md
+
+servers:
+  - url: https://www.pagasa.dost.gov.ph
+    description: Primary public website API
+
+tags:
+  - name: hazards
+    description: Active warnings and tropical cyclone products
+  - name: weather
+    description: Observations, AWS, outlooks
+  - name: imagery
+    description: Radar, satellite, contours
+  - name: geo
+    description: Municipalities and search indexes
+  - name: tracks
+    description: Cyclone track points
+
+paths:
+  /api/ActiveWarning:
+    post:
+      tags: [hazards]
+      operationId: postActiveWarning
+      summary: Active hazard warnings map
+      description: |
+        Primary Klima bronze source. Top-level keys are hazard titles.
+        Flood-like products are objects keyed by severity (`4Extreme`, `3Severe`, …).
+        `Tropical Cyclone Alert` is typically an **array** of alert objects.
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Active warnings JSON
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActiveWarningResponse"
+              examples:
+                floodAndTcAlert:
+                  summary: Observed 2026-07-25 shape (keys vary by day)
+                  value:
+                    General Flood Advisory:
+                      "4Extreme":
+                        class: severe-flood-warning
+                        iconUrl: https://pubfiles.pagasa.dost.gov.ph/pagasaweb/icons/hazard/flood/32/flood-alert.png
+                        regions:
+                          "Region 4-B (MIMAROPA)":
+                            areas: Occidental Mindoro, Palawan
+                            issued_at: "2026-07-25 17:33:50"
+                            expired_at: "2026-07-26 05:33:50"
+                            url: https://www.panahon.gov.ph/public-alerts/example
+                            description: Under present weather conditions…
+                            centroid:
+                              latitude: 12.35
+                              longitude: 121.02
+                            tooltip: General Flood Advisory (Extreme)<br>…
+                      "3Severe":
+                        class: flood-warning
+                        iconUrl: https://pubfiles.pagasa.dost.gov.ph/pagasaweb/icons/hazard/flood/32/flood-alert.png
+                        regions:
+                          "NCR (National Capital Region)":
+                            areas: Metro Manila
+                            issued_at: "2026-07-25 17:35:42"
+                            expired_at: "2026-07-26 05:35:42"
+                            url: https://www.panahon.gov.ph/public-alerts/example
+                            description: …
+                            centroid:
+                              latitude: "14.5987"
+                              longitude: "121.033"
+                            tooltip: …
+                    Tropical Cyclone Alert:
+                      - class: tropical-cyclone-alert
+                        iconUrl: https://pubfiles.pagasa.dost.gov.ph/pagasaweb/icons/hazard/tropical-cyclone-alert/32/tropical-cyclone-alert.png
+                        regions:
+                          Philippine Area of Responsibility:
+                            area: Philippine Area of Responsibility
+                            issued_at: "2026-07-25 10:48:59"
+                            expired_at: "2026-07-25 23:48:26"
+                            url: https://v2-cloud.meteopilipinas.gov.ph/public-alerts/example
+                            description: KIYAPO maintains its strength…
+                            centroid:
+                              latitude: "12.2541"
+                              longitude: "122.0581"
+                            tooltip: …
+
+  /api/TropicalCycloneWarning:
+    post:
+      tags: [hazards]
+      operationId: postTropicalCycloneWarning
+      summary: Structured tropical cyclone warning / bulletin list
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Array of TC warning documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TropicalCycloneWarning"
+
+  /api/TropicalCycloneBulletin:
+    post:
+      tags: [hazards]
+      operationId: postTropicalCycloneBulletin
+      summary: Presentation-oriented TC bulletin
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Bulletin wrapper with numeric string keys
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TropicalCycloneBulletinResponse"
+
+  /api/CycloneTrack:
+    post:
+      tags: [tracks, hazards]
+      operationId: postCycloneTrack
+      summary: Named cyclone tracks with time-keyed points
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Track list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CycloneTrack"
+
+  /api/track_points/{typhoonId}:
+    post:
+      tags: [tracks]
+      operationId: postTrackPoints
+      summary: Track points for an impact-based typhoon id
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+        - name: typhoonId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Track point rows
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TrackPoint"
+
+  /api/Lightning:
+    post:
+      tags: [hazards]
+      operationId: postLightning
+      summary: Recent lightning flashes
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Flash list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LightningFlash"
+
+  /api/Radar:
+    post:
+      tags: [imagery]
+      operationId: postRadar
+      summary: Radar mosaic timeline wrapper
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: HybridTimeline under Radar key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  HybridTimeline:
+                    $ref: "#/components/schemas/HybridTimeline"
+
+  /api/HybridTimeline:
+    post:
+      tags: [imagery]
+      operationId: postHybridTimeline
+      summary: Radar rainfall / reflectivity frames
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Timeline frames
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HybridTimeline"
+
+  /api/SatelliteImages:
+    post:
+      tags: [imagery]
+      operationId: postSatelliteImages
+      summary: Himawari / COMS image URLs
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Named satellite layers
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/SatelliteLayer"
+
+  /api/ContourMaps:
+    post:
+      tags: [imagery]
+      operationId: postContourMaps
+      summary: Temperature / humidity / rain contour overlays
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Contour layers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  temperature:
+                    $ref: "#/components/schemas/ContourLayer"
+                  humidity:
+                    $ref: "#/components/schemas/ContourLayer"
+                  rain:
+                    $ref: "#/components/schemas/ContourLayer"
+
+  /api/CurrentWeather:
+    post:
+      tags: [weather]
+      operationId: postCurrentWeather
+      summary: Current weather by place geocode
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Map of geocode → observation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/CurrentWeather"
+
+  /api/NearestAWS:
+    post:
+      tags: [weather]
+      operationId: postNearestAWS
+      summary: Nearest automatic weather station readings by geocode
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Map of geocode → AWS reading array
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/AwsReading"
+
+  /api/ExtendedWeatherOutlook:
+    post:
+      tags: [weather]
+      operationId: postExtendedWeatherOutlook
+      summary: Multi-day outlook by geocode
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Map of geocode → outlook wrapper
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  required: [outlook]
+                  properties:
+                    outlook:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/OutlookDay"
+
+  /api/SearchList:
+    post:
+      tags: [geo]
+      operationId: postSearchList
+      summary: Home search key places / stations
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Map of geocode → search entry
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/SearchEntry"
+
+  /api/Municipalities:
+    post:
+      tags: [geo]
+      operationId: postMunicipalities
+      summary: Municipality gazetteer (~1600+ entries)
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Map of municipality id → location
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/Municipality"
+
+  /api/BackgroundImages:
+    post:
+      tags: [geo]
+      operationId: postBackgroundImages
+      summary: Key-city background image URLs
+      parameters:
+        - $ref: "#/components/parameters/BrowserLikeHeaders"
+      responses:
+        "200":
+          description: Map of geocode → image URL string
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                  format: uri
+
+components:
+  parameters:
+    BrowserLikeHeaders:
+      name: X-Requested-With
+      in: header
+      required: false
+      description: |
+        Send together with Origin/Referer/User-Agent matching pagasa.dost.gov.ph.
+        Documented as a header parameter for visibility; clients should also set
+        Origin and Referer (OpenAPI cannot require all browser headers cleanly).
+      schema:
+        type: string
+        default: XMLHttpRequest
+
+  schemas:
+    LatLon:
+      type: object
+      properties:
+        latitude:
+          oneOf:
+            - type: number
+            - type: string
+        longitude:
+          oneOf:
+            - type: number
+            - type: string
+
+    WarningRegion:
+      type: object
+      properties:
+        areas:
+          type: string
+          description: Comma-separated area list (flood products)
+        area:
+          type: string
+          description: Singular area label (seen on TC alert)
+        issued_at:
+          type: string
+          example: "2026-07-25 17:33:50"
+        expired_at:
+          type: string
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+          description: Often contains HTML breaks
+        centroid:
+          $ref: "#/components/schemas/LatLon"
+        tooltip:
+          type: string
+
+    SeverityBucket:
+      type: object
+      properties:
+        class:
+          type: string
+          example: flood-warning
+        iconUrl:
+          type: string
+          format: uri
+        regions:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/WarningRegion"
+
+    ActiveWarningResponse:
+      type: object
+      description: |
+        AdditionalProperties values are either a severity-keyed object
+        (flood-like) or an array of SeverityBucket-like alerts (TC Alert).
+      additionalProperties:
+        oneOf:
+          - type: object
+            additionalProperties:
+              $ref: "#/components/schemas/SeverityBucket"
+          - type: array
+            items:
+              $ref: "#/components/schemas/SeverityBucket"
+
+    TropicalCycloneWarning:
+      type: object
+      properties:
+        alert_type:
+          type: string
+          example: Alert
+        unix_timestamp:
+          type: integer
+        alert:
+          type: string
+        active:
+          type: boolean
+        bulletin_number:
+          type: string
+        tc_name:
+          type: string
+          example: 'Typhoon: "Kiyapo"'
+        issued_at:
+          type: string
+        pdf_link:
+          type: string
+          format: uri
+        image_url:
+          type: string
+          format: uri
+        impact_statement:
+          type: string
+        bullets:
+          type: array
+          items:
+            type: string
+        location:
+          type: string
+        strength:
+          type: string
+        movement:
+          type: string
+        position:
+          type: string
+        signal_luzon:
+          type: array
+          items: {}
+        signal_visayas:
+          type: array
+          items: {}
+        signal_mindanao:
+          type: array
+          items: {}
+        signalcomment:
+          type: string
+        bottombullets:
+          type: array
+          items:
+            type: string
+        signals:
+          description: Signal polygons / structured signal payload (varies)
+          nullable: true
+
+    TropicalCycloneBulletinResponse:
+      type: object
+      required: [active]
+      properties:
+        active:
+          type: boolean
+      additionalProperties:
+        description: Numeric string keys ("0", "1", …) holding bulletin bodies
+        type: object
+        properties:
+          headline:
+            type: string
+          issued_at:
+            type: string
+          validity:
+            type: string
+          intName:
+            type: string
+            description: International name (e.g. NOUL)
+          title:
+            type: string
+          subtitle:
+            type: string
+          impact_statement:
+            type: string
+          bullets:
+            type: object
+            additionalProperties:
+              type: string
+
+    CycloneTrackPoint:
+      type: object
+      properties:
+        cyclone_type:
+          type: string
+          example: TS
+        date:
+          type: string
+        time:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        radius:
+          type: string
+
+    CycloneTrack:
+      type: object
+      properties:
+        cyclone_name:
+          type: string
+        info:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/CycloneTrackPoint"
+
+    TrackPoint:
+      type: object
+      properties:
+        id:
+          type: integer
+        impact_based_typhoon_id:
+          type: integer
+        unix:
+          type: integer
+        latitude:
+          type: string
+        longitude:
+          type: string
+        vs:
+          type: string
+          description: Intensity / category code (opaque)
+        created_at:
+          type: string
+          nullable: true
+        updated_at:
+          type: string
+          nullable: true
+        deleted_at:
+          type: string
+          nullable: true
+
+    LightningFlash:
+      type: object
+      properties:
+        type:
+          type: string
+          example: in_cloud
+        url:
+          type: string
+          format: uri
+        flash_type:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        timestamp:
+          type: string
+        amplitude:
+          type: number
+
+    TimelineFrame:
+      type: object
+      properties:
+        time:
+          type: string
+          example: "Jul 25, 2026 05:45 PM"
+        url:
+          type: string
+          format: uri
+
+    HybridTimeline:
+      type: object
+      properties:
+        rainfall_estimate:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimelineFrame"
+        reflectivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimelineFrame"
+
+    BoundsNESW:
+      type: object
+      properties:
+        N: { type: number }
+        E: { type: number }
+        S: { type: number }
+        W: { type: number }
+        n: { type: number }
+        e: { type: number }
+        s: { type: number }
+        w: { type: number }
+
+    ContourLayer:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        bounds:
+          $ref: "#/components/schemas/BoundsNESW"
+
+    SatelliteLayer:
+      type: object
+      properties:
+        name:
+          type: string
+        latest:
+          type: string
+        animated:
+          type: string
+        bounds:
+          $ref: "#/components/schemas/BoundsNESW"
+
+    CurrentWeather:
+      type: object
+      properties:
+        datetime:
+          type: string
+        site_id:
+          type: string
+        temperature:
+          type: string
+          example: 29°C
+        humidity:
+          type: string
+        wind_speed:
+          type: string
+        wind_direction:
+          type: string
+        precipitation:
+          type: string
+        site_name:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        url:
+          type: string
+          format: uri
+        desc:
+          type: string
+
+    AwsReading:
+      type: object
+      properties:
+        datetime:
+          type: string
+        site_id:
+          type: string
+        temperature:
+          type: string
+        heat_index:
+          type: string
+        humidity:
+          type: string
+        pressure:
+          type: string
+        solar_radiation:
+          type: string
+        wind_speed:
+          type: string
+        wind_direction:
+          type: string
+        precipitation:
+          type: string
+        site_name:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+
+    OutlookDay:
+      type: object
+      properties:
+        desc:
+          type: string
+        url:
+          type: string
+          format: uri
+        min:
+          type: string
+        max:
+          type: string
+
+    SearchEntry:
+      type: object
+      properties:
+        province:
+          type: string
+        municipality:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        site_id:
+          type: integer
+
+    Municipality:
+      type: object
+      properties:
+        region:
+          type: string
+        province:
+          type: string
+        municipality:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number

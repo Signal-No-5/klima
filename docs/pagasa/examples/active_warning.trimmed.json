@@ -1,0 +1,60 @@
+{
+  "General Flood Advisory": {
+    "4Extreme": {
+      "iconUrl": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/icons/hazard/flood/32/flood-warning.png",
+      "class": "severe-flood-warning",
+      "regions": {
+        "Region 4-B (MIMAROPA)": {
+          "areas": "Occidental Mindoro, Palawan, Oriental Mindoro, Romblon, Marinduque",
+          "issued_at": "2026-07-25 17:33:50",
+          "expired_at": "2026-07-26 05:33:50",
+          "url": "https://www.panahon.gov.ph/public-alerts/619c5cf6-c9c6-46f3-a071-d6723a614fd3",
+          "description": "Under present weather conditions, Typhoon \"KIYAPO\" {NOUL} affecting Extreme Northern Luzon. Southwest Monsoon affecting Central and Southern Luzon, Visayas, and Mindanao.  <br />\nThe 12-hour rainfall forecast is moderate to heavy rains .  <br />\nWATERCOURSES LIKELY TO BE AFFECTED :  <br />\n<br />\n + **Occidental Mindoro** - Rivers and its tributaries particularly Abra De Ilog, Caguray, Labangan, Lumintao, Anahawin, Monpong, Amnay, Pola, Pagbahan, Mamburao, Ibod, and Bugsanga-Magbando.  <br />\n + **Palawan** - Rivers and its tributaries particularly Abongan, Lian, Barbakan, Rizal, Caramay, Langogan, Babuyan, Bacungan, Iwahig Penal, Inagauan, Aborlan, Malatgao, Apurauan, Baton-Baton, Aramaywan, Ihawig, Panitian, Pulot, Lamakan, Kinlugan, Eraan, Tiga Plan, Malabangan, Ilog, Bansang, Conduaga, Culasian, Iwahig (Brookes), Okayan, Canipaan and Busuanga, Coron.  <br />\n + **Oriental Mindoro** - Rivers and its tributaries particularly Malaylay-Baco, Pulang Tubig, Mag-asawang Tubig, Butas, Pula, Agsalin, Bansud, Sumagui, Bongabong, Baroc, Bulalacao and Balete.  <br />\n + **Romblon** - All rivers and its tributaries  <br />\n + **Marinduque** - Rivers and its tributaries particularly Tawiran-Tagum (Marinduque) and Boac.  <br />\n",
+          "centroid": {
+            "latitude": 12.353570854150561,
+            "longitude": 121.01706237152499
+          },
+          "tooltip": "General Flood Advisory (Extreme)<br>Region 4-B (MIMAROPA)<br>Occidental Mindoro<br>Palawan<br>Oriental Mindoro<br>Romblon<br>Marinduque"
+        }
+      }
+    },
+    "3Severe": {
+      "iconUrl": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/icons/hazard/flood/32/flood-alert.png",
+      "class": "flood-warning",
+      "regions": {
+        "NCR (National Capital Region)": {
+          "areas": "Metro Manila",
+          "issued_at": "2026-07-25 17:35:42",
+          "expired_at": "2026-07-26 05:35:42",
+          "url": "https://www.panahon.gov.ph/public-alerts/2a81f345-748c-4098-be09-18d3a7b5ade8",
+          "description": "Under present weather conditions, Typhoon \"KIYAPO\" {NOUL} affecting Extreme Northern Luzon. Southwest Monsoon affecting Central and Southern Luzon, Visayas, and Mindanao.  <br />\nThe 12-hour rainfall forecast is Light to  moderate rains and thunderstorms.  <br />\nWATERCOURSES LIKELY TO BE AFFECTED :  <br />\n<br />\n + **Metro Manila** - All rivers and streams in Metro Manila.  <br />\n",
+          "centroid": {
+            "latitude": "14.5987",
+            "longitude": "121.033"
+          },
+          "tooltip": "General Flood Advisory (Severe)<br>NCR (National Capital Region)<br>Metro Manila"
+        }
+      }
+    }
+  },
+  "Tropical Cyclone Alert": [
+    {
+      "iconUrl": "https://pubfiles.pagasa.dost.gov.ph/pagasaweb/icons/hazard/tropical-cyclone-alert/32/tropical-cyclone-alert.png",
+      "class": "tropical-cyclone-alert",
+      "regions": {
+        "Philippine Area of Responsibility": {
+          "area": "Philippine Area of Responsibility",
+          "issued_at": "2026-07-25 10:48:59",
+          "expired_at": "2026-07-25 23:48:26",
+          "url": "https://v2-cloud.meteopilipinas.gov.ph/public-alerts/cc368dd6-7ebd-49d9-ba02-25c9d3b51a76",
+          "description": "\u201cKIYAPO\u201d MAINTAINS ITS STRENGTH WHILE MOVING TOWARDS SOUTHERN CHINA.<br />\r\n<br />\r\n<br />\r\nLocation of eye/center : The center of Typhoon KIYAPO was estimated based on all available data at  at 465 km West of Basco, Batanes (21.1, 117.4).<br />\r\nStrength : Maximum winds of 120 kph near the centerand gustiness of up to 150 kph.<br />\r\nForecast movement : Forecast to move Northwestward at 25 kph<br />\r\n<br />\r\nForecast position : <br />\r\nJul 25, 2026 08:00 PM - 610 km West Northwest of Itbayat, Batanes (OUTSIDE PAR)<br />\r\nJul 26, 2026 08:00 AM - 785 km West Northwest of Itbayat, Batanes (OUTSIDE PAR)<br />\r\nJul 26, 2026 08:00 PM - 910 km West Northwest of Extreme Northern Luzon (OUTSIDE PAR)<br />\r\nJul 27, 2026 08:00 AM - 1,070 km Northwest of Extreme Northern Luzon (OUTSIDE PAR)<br />\r\nJul 27, 2026 08:00 PM - 1,275 km Northwest of Extreme Northern Luzon (OUTSIDE PAR)<br />\r\n<br />\r\nHAZARDS AFFECTING LAND AREAS<br />\r\nHeavy Rainfall Outlook<br />\r\n<br />\r\nRefer to Weather Advisory No. 17 issued at 11:00 AM today for the heavy rainfall outlook due to the Southwest Monsoon.<br />\r\n<br />\r\nSevere Winds<br />\r\n<br />\r\nThe Southwest Monsoon and the periphery of KIYAPO will bring strong to gale-force gusts over the following areas (especially in coastal and upland areas exposed to winds):<br />\r\n<br />\r\nToday: Most of Luzon, Western Visayas, Negros Island Region, Northern Samar, Zamboanga del Norte, and Davao Oriental.<br />\r\nTomorrow (26 July): Batanes, Cagayan, Ilocos Region, Zambales, Bataan, Quezon, and MIMAROPA.<br />\r\nMonday (27 July): La Union, Pangasinan, Zambales, Lubang Islands, and Kalayaan Islands<br />\r\n<br />\r\nHAZARDS AFFECTING COASTAL WATERS<br />\r\n24-Hour Sea Condition Outlook <br />\r\n<br />\r\nUp to rough seas over the following coastal waters: <br />\r\nUp to 3.5 m: The seaboard of Batanes.<br />\r\nUp to 3.0 m: The seaboard of Babuyan Islands; the northern seaboard of Ilocos Norte; the northeastern seaboard of mainland Cagayan.<br />\r\nMariners of small seacrafts, including all types of motorbancas, are advised not to venture out to sea under these conditions, especially if inexperienced of operating ill-equipped vessels.<br />\r\n<br />\r\nUp to moderate to rough seas over the following coastal waters:<br />\r\nUp to 2.5 m: The northern seaboards of Isabela and Ilocos Sur; the western seaboard of Kalayaan Islands; the remaining seaboards of mainland Cagayan and Ilocos Norte.<br />\r\nUp to 2.0 m: The seaboard of Zambales; the northern seaboard of La Union; the western seaboards of Pangasinan, Bataan, Calamian Islands, and Occidental Mindoro including Lubang Islands; the eastern seaboard of Davao Oriental; the remaining seaboards of Isabela, Ilocos Sur, and Kalayaan Islands.<br />\r\nMariners of motorbancas and similarly sized vessels are advised to take precautionary measures while venturing out to sea and, if possible, avoid navigation under these conditions.<br />\r\n<br />\r\nOther coastal waters have forecast wave heights of less than 2.0 m.<br />\r\n<br />\r\nTRACK AND INTENSITY OUTLOOK<br />\r\nKIYAPO is forecast to move generally northwestward until tomorrow (26 July) towards southern mainland China before turning north northwestward. Due to favorable environment conditions, KIYAPO will continue to strengthen in the next 12 hours, prior to its landfall. Afterwards, KIYAPO is expected to weaken rapidly as it moves further inland over mainland China.<br />\r\n<br />\r\n",
+          "centroid": {
+            "latitude": "12.2541",
+            "longitude": "122.0581"
+          },
+          "tooltip": "Tropical Cyclone Alert<br>Philippine Area of Responsibility<br>Philippine Area of Responsibility"
+        }
+      }
+    }
+  ]
+}

@@ -136,7 +136,7 @@ KLIMA automatically extracts and standardizes data from government APIs and publ
 
 **Current Source:**
 
-* PAGASA Active Warnings API
+* PAGASA Active Warnings API — see unofficial reverse-engineering notes + OpenAPI under [`docs/pagasa/`](../docs/pagasa/)
 
 **Potential Additions:**
 
