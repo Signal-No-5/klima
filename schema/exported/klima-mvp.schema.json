@@ -1,0 +1,797 @@
+{
+  "$defs": {
+    "CommunityPostOut": {
+      "additionalProperties": false,
+      "description": "LGU, barangay, NGO, or citizen community announcement.",
+      "properties": {
+        "author_name": {
+          "title": "Author Name",
+          "type": "string"
+        },
+        "author_type": {
+          "default": "citizen",
+          "title": "Author Type",
+          "type": "string"
+        },
+        "contact_info": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Contact Info"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Url"
+        },
+        "is_pinned": {
+          "default": false,
+          "title": "Is Pinned",
+          "type": "boolean"
+        },
+        "tags": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tags"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "views": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Views",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "author_name",
+        "timestamp"
+      ],
+      "title": "CommunityPostOut",
+      "type": "object"
+    },
+    "HazardOut": {
+      "additionalProperties": false,
+      "description": "Active official or citizen-reported hazard feed item.",
+      "properties": {
+        "barangay": {
+          "default": "",
+          "title": "Barangay",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Url"
+        },
+        "is_verified": {
+          "default": false,
+          "title": "Is Verified",
+          "type": "boolean"
+        },
+        "latitude": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "municipality": {
+          "default": "",
+          "title": "Municipality",
+          "type": "string"
+        },
+        "province": {
+          "default": "",
+          "title": "Province",
+          "type": "string"
+        },
+        "reports": {
+          "default": 1,
+          "minimum": 0,
+          "title": "Reports",
+          "type": "integer"
+        },
+        "severity": {
+          "default": "moderate",
+          "title": "Severity",
+          "type": "string"
+        },
+        "source": {
+          "default": "citizen",
+          "title": "Source",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "minLength": 1,
+          "title": "Type",
+          "type": "string"
+        },
+        "upvotes": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Upvotes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "description",
+        "latitude",
+        "longitude",
+        "timestamp"
+      ],
+      "title": "HazardOut",
+      "type": "object"
+    },
+    "ReportCreate": {
+      "$defs": {
+        "ReportStatus": {
+          "enum": [
+            "pending",
+            "verified",
+            "responding",
+            "resolved",
+            "dismissed"
+          ],
+          "title": "ReportStatus",
+          "type": "string"
+        },
+        "ReportType": {
+          "enum": [
+            "hazard",
+            "help",
+            "safe"
+          ],
+          "title": "ReportType",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Citizen report/help/safe-status submission.",
+      "properties": {
+        "barangay": {
+          "default": "",
+          "title": "Barangay",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "hazard_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hazard Type"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Id"
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Url"
+        },
+        "image_urls": {
+          "anyOf": [
+            {
+              "items": {
+                "format": "uri",
+                "maxLength": 2083,
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Urls"
+        },
+        "latitude": {
+          "default": 0.0,
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "default": 0.0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "municipality": {
+          "default": "",
+          "title": "Municipality",
+          "type": "string"
+        },
+        "responded_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Responded At"
+        },
+        "responder_notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Responder Notes"
+        },
+        "status": {
+          "$ref": "#/$defs/ReportStatus",
+          "default": "pending"
+        },
+        "timestamp": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timestamp"
+        },
+        "title": {
+          "default": "",
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/ReportType",
+          "default": "hazard"
+        },
+        "user_id": {
+          "default": "",
+          "title": "User Id",
+          "type": "string"
+        },
+        "user_name": {
+          "default": "Anonymous",
+          "title": "User Name",
+          "type": "string"
+        }
+      },
+      "title": "ReportCreate",
+      "type": "object"
+    },
+    "ReportOut": {
+      "$defs": {
+        "ReportStatus": {
+          "enum": [
+            "pending",
+            "verified",
+            "responding",
+            "resolved",
+            "dismissed"
+          ],
+          "title": "ReportStatus",
+          "type": "string"
+        },
+        "ReportType": {
+          "enum": [
+            "hazard",
+            "help",
+            "safe"
+          ],
+          "title": "ReportType",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Persisted report returned by the API.",
+      "properties": {
+        "barangay": {
+          "default": "",
+          "title": "Barangay",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "hazard_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hazard Type"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Url"
+        },
+        "image_urls": {
+          "anyOf": [
+            {
+              "items": {
+                "format": "uri",
+                "maxLength": 2083,
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Urls"
+        },
+        "latitude": {
+          "default": 0.0,
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "default": 0.0,
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "municipality": {
+          "default": "",
+          "title": "Municipality",
+          "type": "string"
+        },
+        "responded_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Responded At"
+        },
+        "responder_notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Responder Notes"
+        },
+        "status": {
+          "$ref": "#/$defs/ReportStatus",
+          "default": "pending"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "title": {
+          "default": "",
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/ReportType",
+          "default": "hazard"
+        },
+        "user_id": {
+          "default": "",
+          "title": "User Id",
+          "type": "string"
+        },
+        "user_name": {
+          "default": "Anonymous",
+          "title": "User Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "timestamp"
+      ],
+      "title": "ReportOut",
+      "type": "object"
+    },
+    "RiskOut": {
+      "$defs": {
+        "RiskLevel": {
+          "enum": [
+            "low",
+            "moderate",
+            "high",
+            "critical"
+          ],
+          "title": "RiskLevel",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Barangay-level risk components and composite score.",
+      "properties": {
+        "active_warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Active Warnings",
+          "type": "array"
+        },
+        "barangay_id": {
+          "title": "Barangay Id",
+          "type": "string"
+        },
+        "barangay_name": {
+          "title": "Barangay Name",
+          "type": "string"
+        },
+        "exposure_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Exposure Score",
+          "type": "number"
+        },
+        "hazard_breakdown": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Hazard Breakdown",
+          "type": "object"
+        },
+        "hazard_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Hazard Score",
+          "type": "number"
+        },
+        "last_updated": {
+          "format": "date-time",
+          "title": "Last Updated",
+          "type": "string"
+        },
+        "municipality": {
+          "title": "Municipality",
+          "type": "string"
+        },
+        "risk_level": {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        "risk_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Risk Score",
+          "type": "number"
+        },
+        "safe_residents": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Safe Residents",
+          "type": "integer"
+        },
+        "total_population": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Total Population",
+          "type": "integer"
+        },
+        "vulnerability_score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Vulnerability Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "barangay_id",
+        "barangay_name",
+        "municipality",
+        "hazard_score",
+        "exposure_score",
+        "vulnerability_score",
+        "risk_score",
+        "risk_level",
+        "last_updated"
+      ],
+      "title": "RiskOut",
+      "type": "object"
+    },
+    "SafeZoneOut": {
+      "additionalProperties": false,
+      "description": "Evacuation center or other safe facility.",
+      "properties": {
+        "address": {
+          "default": "",
+          "title": "Address",
+          "type": "string"
+        },
+        "amenities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Amenities",
+          "type": "array"
+        },
+        "barangay": {
+          "default": "",
+          "title": "Barangay",
+          "type": "string"
+        },
+        "capacity": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Capacity",
+          "type": "integer"
+        },
+        "contact_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Contact Number"
+        },
+        "current_occupancy": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Current Occupancy",
+          "type": "integer"
+        },
+        "elevation": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elevation"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "image_url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 2083,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Image Url"
+        },
+        "is_operational": {
+          "default": true,
+          "title": "Is Operational",
+          "type": "boolean"
+        },
+        "latitude": {
+          "maximum": 90,
+          "minimum": -90,
+          "title": "Latitude",
+          "type": "number"
+        },
+        "longitude": {
+          "maximum": 180,
+          "minimum": -180,
+          "title": "Longitude",
+          "type": "number"
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metadata"
+        },
+        "municipality": {
+          "default": "",
+          "title": "Municipality",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "type": {
+          "default": "evacuation_center",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "latitude",
+        "longitude"
+      ],
+      "title": "SafeZoneOut",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Generated from schema/klima_schema.",
+  "title": "Klima MVP contracts"
+}
