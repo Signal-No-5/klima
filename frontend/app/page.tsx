@@ -1,30 +1,85 @@
-export default function HomePage() {
+import { HazardPanel } from "@/components/HazardPanel";
+import { ReportPanel } from "@/components/ReportPanel";
+import { RiskPanel } from "@/components/RiskPanel";
+import { SafeZonePanel } from "@/components/SafeZonePanel";
+import {
+  getHealth,
+  getLatestHazards,
+  getReports,
+  getRisk,
+  getSafeZones,
+} from "@/lib/api";
+import { getApiBaseUrl } from "@/lib/config";
+
+export const dynamic = "force-dynamic";
+
+const DEFAULT_BARANGAY = "iba-este";
+
+export default async function HomePage() {
+  const baseUrl = getApiBaseUrl();
+  const barangayId = DEFAULT_BARANGAY;
+
+  const [health, hazards, reports, safeZones, risk] = await Promise.all([
+    getHealth(),
+    getLatestHazards(),
+    getReports(),
+    getSafeZones(),
+    getRisk(barangayId),
+  ]);
+
+  const liveOk = health.ok;
+  const anyDataOk =
+    hazards.ok || reports.ok || safeZones.ok || risk.ok;
+
   return (
-    <main
-      style={{
-        fontFamily: "Georgia, 'Times New Roman', serif",
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        padding: "2rem",
-        background:
-          "linear-gradient(165deg, #e8f0ea 0%, #c5d4c8 45%, #9bb0a3 100%)",
-        color: "#1a2e24",
-      }}
-    >
-      <div style={{ maxWidth: "36rem", textAlign: "center" }}>
-        <p style={{ letterSpacing: "0.12em", textTransform: "uppercase", fontSize: "0.75rem" }}>
-          Klima
-        </p>
-        <h1 style={{ fontSize: "2rem", fontWeight: 600, margin: "0.75rem 0" }}>
-          LGU dashboard not implemented yet
-        </h1>
-        <p style={{ lineHeight: 1.6, margin: 0 }}>
-          This package is an honest monorepo scaffold. Citizen flows live in{" "}
-          <code>mobile/</code>; API + ETL live in <code>backend/</code>. See root{" "}
-          <code>STATUS.md</code>.
-        </p>
+    <main className="app-shell">
+      <header className="brand-row">
+        <div>
+          <h1 className="brand">
+            Klima <span>LGU</span>
+          </h1>
+          <p className="tagline">
+            Hazard feed, incoming reports, safe-zone occupancy, and barangay
+            risk — fetched from the live backend (no fabricated demo payload).
+          </p>
+        </div>
+        <div className="meta">
+          <div>
+            API base: <strong>{baseUrl}</strong>
+          </div>
+          <div>
+            Env: <code>NEXT_PUBLIC_KLIMA_API_URL</code>
+          </div>
+        </div>
+      </header>
+
+      {liveOk ? (
+        <div className="banner ok" role="status">
+          Backend health OK ({health.data.status}). Views below use real{" "}
+          <code>GET</code> responses from this base URL.
+        </div>
+      ) : (
+        <div className="banner error" role="alert">
+          <strong>Backend unreachable.</strong> {health.error.message}
+          {!anyDataOk
+            ? " All dashboard panels show explicit error states — data is not faked."
+            : null}
+        </div>
+      )}
+
+      <div className="grid">
+        <HazardPanel result={hazards} />
+        <ReportPanel result={reports} />
+        <RiskPanel barangayId={barangayId} result={risk} />
+        <SafeZonePanel result={safeZones} />
       </div>
+
+      <p className="footer-note">
+        Types in <code>lib/types.ts</code> mirror{" "}
+        <code>schema/exported/*.schema.json</code>. Endpoints match{" "}
+        <code>backend/app/api/v1/endpoints/klima.py</code> (also mounted at
+        root). Map UI, triage actions, and auth are out of scope for this MVP.
+      </p>
     </main>
   );
 }
