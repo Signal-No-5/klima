@@ -11,7 +11,7 @@ This repository is a **single flat monorepo**.
 | `mobile/` | Flutter citizen/responder app | Present (hackathon MVP) |
 | `backend/` | FastAPI backend + DuckDB pipeline | Present |
 | `backend/pipeline/` | ETL assets (e.g. PAGASA bronze) | Present — **canonical ETL** until #8 moves it to `data/` |
-| `frontend/` | LGU web dashboard | **Scaffold / stub** |
+| `frontend/` | LGU web dashboard | Present (MVP #6) — live API views |
 | `docs/` | VitePress docs + MVP handoffs | Present (scaffold content) |
 | `data/` | Pointer package for ETL | **Scaffold / stub** (#8) |
 | `schema/` | Central contracts (`klima_schema`) | Present (#4) — see [`schema/README.md`](./schema/README.md) |
@@ -37,6 +37,17 @@ cd backend
 # Prefer the repo venv if `uv run` resolves the wrong interpreter:
 .venv/bin/python -m pytest tests/test_klima_endpoints.py -q
 ```
+
+## Quick start (LGU dashboard)
+
+```bash
+# backend on :8000 first, then:
+cd frontend
+pnpm install
+pnpm dev
+```
+
+Set `NEXT_PUBLIC_KLIMA_API_URL` (default `http://127.0.0.1:8000`). See [`frontend/README.md`](./frontend/README.md).
 
 ## Schema contracts
 

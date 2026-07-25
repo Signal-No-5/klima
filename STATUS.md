@@ -9,8 +9,8 @@ Honest inventory of what exists in this monorepo versus what was promised in hac
 | **ETL** | `backend/pipeline/refinery/bronze/pagasa_warnings.py` + DuckDB bronze/silver/gold files | Silver/gold transforms | Full medallion orchestration, schedules; move home to `data/` (#8) |
 | **`data/`** | README + `pyproject.toml` pointing at `backend/pipeline` | Empty product surface | Standalone ETL package / published datasets |
 | **`docs/`** | VitePress scaffold + MVP handoffs | Content beyond getting-started | Full operator + API docs site |
-| **`frontend/`** | Minimal Next.js stub page | No real LGU workflows | Live risk map, report triage, occupancy |
-| **`schema/`** | Pydantic MVP entities + JSON Schema export; backend re-exports | Flutter still parallel Dart models (parity doc) | Generated Dart/TS clients from schema |
+| **`frontend/`** | MVP LGU dashboard: hazards, reports, risk, safe zones via live API (`NEXT_PUBLIC_KLIMA_API_URL`); explicit empty/error states | Map UI, triage actions, auth | Full risk map CMS, report workflow, occupancy ops |
+| **`schema/`** | Pydantic MVP entities + JSON Schema export; backend re-exports | Flutter still parallel Dart models (parity doc); frontend hand-mirrors TS from export | Generated Dart/TS clients from schema |
 | **Community / risk / safe zones** | Fixture-backed API responses matching mobile models | Persistence beyond in-memory reports | Verified geospatial risk model, live safe-zone CMS |
 
 ## Legend

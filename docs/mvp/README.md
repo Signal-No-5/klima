@@ -24,7 +24,7 @@ klima/
 ## Definition of Done
 - [ ] Flat layout (no `web/` nesting)
 - [ ] Backend boots; health + mobile contract endpoints work
-- [ ] Frontend talks to live backend
+- [x] Frontend talks to live backend (#6)
 - [ ] Docs site builds with getting-started + API overview
 - [ ] Data owns ETL; bronze ingest runnable
 - [x] `schema/` is SoT for hazard/report/safezone/community/risk (#4)
