@@ -1,0 +1,36 @@
+name: Backend CI
+
+on:
+  pull_request:
+    paths:
+      - "backend/**"
+      - "docker-compose.yml"
+      - ".github/workflows/ci-backend.yml"
+  push:
+    branches: [main, feat/mvp-flatten]
+    paths:
+      - "backend/**"
+      - "docker-compose.yml"
+      - ".github/workflows/ci-backend.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync + test
+        run: |
+          uv sync
+          uv run pytest tests/ -q --tb=line
+
+      - name: Docker build
+        working-directory: .
+        run: docker compose build backend

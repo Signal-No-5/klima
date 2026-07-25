@@ -25,3 +25,7 @@ cd docs
 pnpm install
 pnpm docs:dev
 ```
+
+## Deploy (overview)
+
+See [Deployments](./deploy.md) and repo [`deploy/README.md`](https://github.com/Signal-No-5/klima/blob/HEAD/deploy/README.md).

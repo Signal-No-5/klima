@@ -1,0 +1,43 @@
+# Klima API — Fly.io app config
+#
+# Dashboard / CLI one-time setup (not done by this file):
+#   fly apps create klima-api --org <your-org>
+#   fly secrets set SECRET_KEY=… JWT_SECRET_KEY=…   # never commit secrets
+#   fly deploy --config backend/fly.toml --dockerfile backend/Dockerfile
+#
+# SQLite is ephemeral on the VM for MVP. Attach a Fly volume later if you need
+# durable local state, or point DB_DIALECT=postgres + secrets at a managed DB.
+
+app = 'klima-api'
+primary_region = 'sin'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  APP_NAME = 'klima-api'
+  APP_MODE = 'production'
+  APP_PORT = '8080'
+  DB_DIALECT = 'sqlite'
+  SQLITE_FILE = '/tmp/klima.db'
+  LOG_LEVEL = 'INFO'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+  [[http_service.checks]]
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '20s'
+    method = 'GET'
+    path = '/health'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

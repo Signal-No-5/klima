@@ -11,5 +11,10 @@ pnpm docs:dev
 
 ## Status
 
-- Present: minimal VitePress config + home / getting-started pages.
-- Missing: API reference, LGU runbooks, deployment guides.
+- Present: minimal VitePress config + home / getting-started / deploy pages.
+- Missing: API reference, LGU runbooks beyond the deploy contract.
+
+## Deploy
+
+Production docs target: Vercel with Root Directory `docs` (see `vercel.json`).
+Operator SoT in-repo: `deploy/README.md` — summary on this site: [Deployments](/deploy).
