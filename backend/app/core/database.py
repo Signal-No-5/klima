@@ -52,7 +52,7 @@ class Database:
             self.metadata.metadata.drop_all(bind=engine)
 
     def create_all(self):
-        """Create all tables in every configured database."""
-        self.drop_all
+        """Create all tables in every configured database (idempotent)."""
         for engine in self.engines.values():
-            self.metadata.metadata.create_all(bind=engine)
+            # checkfirst avoids "table already exists" on re-import / parallel boots
+            self.metadata.metadata.create_all(bind=engine, checkfirst=True)

@@ -1,7 +1,27 @@
 # 🌦️ Klima API
 
-Backend API for **Klima**, a weather-resilience and environmental monitoring platform built with **FastAPI**.  
-This service provides REST endpoints for air quality, sensor data, user management, and analytics.
+FastAPI backend for **Klima** (weather resilience). MVP surface: health/metrics + mobile contract endpoints backed by the central `klima_schema` package.
+
+> Honest note: channel bots (Messenger/Telegram/Viber), full auth/RBAC, and persistent report storage are **not** built. See root [`STATUS.md`](../STATUS.md).
+
+## MVP quickstart
+
+```bash
+cd backend
+uv sync
+.venv/bin/uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+```bash
+curl -s localhost:8000/health
+curl -s localhost:8000/hazard/latest | head
+# Prefer venv python if `uv run pytest` raises ModuleNotFoundError:
+.venv/bin/python -m pytest -q
+```
+
+Contract paths (also mirrored under `/api/v1`): `/hazard/latest`, `/reports`, `/risk/{barangay_id}`, `/safezones`, `/community/posts`.
+
+Schemas: re-exported from [`../schema`](../schema) via `app.schemas.klima`. Hazards prefer `data/bronze.duckdb` when readable; otherwise fixtures.
 
 ---
 

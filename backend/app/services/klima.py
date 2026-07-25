@@ -18,7 +18,7 @@ from app.schemas.klima import (
     SafeZoneOut,
 )
 
-# web/api/data/bronze.duckdb (from app/services/klima.py)
+# backend/data/bronze.duckdb (fixtures used when missing / empty / unreadable)
 _API_ROOT = Path(__file__).resolve().parents[2]
 BRONZE_DB = _API_ROOT / "data" / "bronze.duckdb"
 

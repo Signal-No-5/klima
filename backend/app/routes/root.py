@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import APIRouter
 from sqlalchemy import Integer
 from sqlmodel import func, select
@@ -7,6 +9,9 @@ from app.models.admin import AuditLog
 
 router = APIRouter()
 
+# backend/data/bronze.duckdb — canonical until #8 relocates ETL under top-level data/
+_BRONZE_DB = Path(__file__).resolve().parents[2] / "data" / "bronze.duckdb"
+
 
 @router.get("/")
 def root():
@@ -15,7 +20,12 @@ def root():
 
 @router.get("/health")
 def health():
-    return {"status": "ok"}
+    """Liveness for local MVP / demos. Does not require Postgres or auth."""
+    return {
+        "status": "ok",
+        "service": "klima-api",
+        "bronze_db": _BRONZE_DB.exists(),
+    }
 
 
 @router.get("/status")
