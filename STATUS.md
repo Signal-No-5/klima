@@ -8,7 +8,7 @@ Honest inventory of what exists in this monorepo versus what was promised in hac
 | **API (`backend/`)** | Root health routes, Prometheus metrics, audit middleware, mobile contract endpoints, DuckDB bronze read | Messenger / Telegram / Viber channel endpoints | Full auth (Keycloak/Auth0), multi-tenant LGU RBAC |
 | **ETL** | `backend/pipeline/refinery/bronze/pagasa_warnings.py` + DuckDB bronze/silver/gold files | Silver/gold transforms | Full medallion orchestration, schedules; move home to `data/` (#8) |
 | **`data/`** | README + `pyproject.toml` pointing at `backend/pipeline` | Empty product surface | Standalone ETL package / published datasets |
-| **`docs/`** | VitePress scaffold + MVP handoffs | Content beyond getting-started | Full operator + API docs site |
+| **`docs/`** | VitePress MVP site (layout, quickstarts, API overview from real routes, schema honesty) + MVP handoffs (in-repo, excluded from site build) | Operator runbooks, embedded OpenAPI UI, deployment guides | Full LGU/operator docs portal |
 | **`frontend/`** | Minimal Next.js stub page | No real LGU workflows | Live risk map, report triage, occupancy |
 | **`schema/`** | — | Planned (#4) | Shared contracts across backend/mobile/frontend |
 | **Community / risk / safe zones** | Fixture-backed API responses matching mobile models | Persistence beyond in-memory reports | Verified geospatial risk model, live safe-zone CMS |

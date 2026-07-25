@@ -25,7 +25,7 @@ klima/
 - [ ] Flat layout (no `web/` nesting)
 - [ ] Backend boots; health + mobile contract endpoints work
 - [ ] Frontend talks to live backend
-- [ ] Docs site builds with getting-started + API overview
+- [x] Docs site builds with getting-started + API overview (#7 / `feat/mvp-docs-7`)
 - [ ] Data owns ETL; bronze ingest runnable
 - [ ] `schema/` is SoT for hazard/report/safezone/community
 - [ ] README + STATUS match reality

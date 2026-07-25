@@ -12,7 +12,7 @@ This repository is a **single flat monorepo**.
 | `backend/` | FastAPI backend + DuckDB pipeline | Present |
 | `backend/pipeline/` | ETL assets (e.g. PAGASA bronze) | Present — **canonical ETL** until #8 moves it to `data/` |
 | `frontend/` | LGU web dashboard | **Scaffold / stub** |
-| `docs/` | VitePress docs + MVP handoffs | Present (scaffold content) |
+| `docs/` | VitePress docs + MVP handoffs | Present (MVP getting-started / layout / API) |
 | `data/` | Pointer package for ETL | **Scaffold / stub** (#8) |
 | `schema/` | Central contracts | **Planned** (#4) |
 
