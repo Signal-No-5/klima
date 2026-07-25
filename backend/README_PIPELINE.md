@@ -216,6 +216,30 @@ uv run python scripts/run_bronze.py --reset
 uv run python scripts/run_bronze.py --summary-only
 ```
 
+Flatten bronze into silver (one row per hazard × severity × region):
+
+```bash
+cd backend
+uv run python scripts/run_silver.py --reset
+uv run python scripts/run_silver.py --summary-only
+```
+
+### Silver: `hazard_warnings`
+
+Normalizes the polymorphic `ActiveWarning` payload (flood objects keyed by
+severity **and** the tropical-cyclone-alert array) into tidy rows:
+
+| Column | Notes |
+|--------|-------|
+| `source_id` | `sha256(hazard\|severity_code\|region\|issued_at)` (dedupe key) |
+| `bronze_source_id` | Parent bronze hash (lineage) |
+| `hazard`, `hazard_class` | e.g. `General Flood Advisory`, `flood-warning` |
+| `severity_code`/`_rank`/`_label` | `4Extreme` → `4`, `Extreme` (null for TC alert) |
+| `region`, `areas` | `areas` falls back to singular `area` |
+| `issued_at`, `expired_at` | `TIMESTAMP` |
+| `centroid_lat`, `centroid_lon` | cast to `DOUBLE` (API sends numbers **or** strings) |
+| `alert_url`, `description` | `description` is HTML-stripped |
+
 Ad-hoc SQL:
 
 ```bash
