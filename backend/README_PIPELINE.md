@@ -198,6 +198,33 @@ Encodes long-term geographic and socioeconomic vulnerability.
 
 ---
 
+## 👀 Inspect bronze (DuckDB)
+
+Warehouse files live under `backend/data/` (Git LFS):
+
+| File | Stage |
+|------|--------|
+| `data/bronze.duckdb` | Raw ingest |
+| `data/silver.duckdb` | Cleaned |
+| `data/gold.duckdb` | Aggregates |
+
+Refresh PAGASA active warnings into bronze and print a summary:
+
+```bash
+cd backend
+uv run python scripts/run_bronze.py --reset
+uv run python scripts/run_bronze.py --summary-only
+```
+
+Ad-hoc SQL:
+
+```bash
+cd backend
+uv run python -c "import duckdb; c=duckdb.connect('data/bronze.duckdb', read_only=True); print(c.execute('SELECT hazard, inserted_at FROM pagasa_warnings').fetchdf())"
+```
+
+---
+
 ## 🧑‍💻 Closing Note
 
 This pipeline demonstrates how **data engineering principles** can be applied to **disaster resilience**.
