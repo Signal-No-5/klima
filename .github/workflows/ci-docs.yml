@@ -1,0 +1,36 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/ci-docs.yml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/ci-docs.yml"
+
+jobs:
+  check:
+    name: Docs provenance / build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docs gate
+        run: |
+          set -euo pipefail
+          test -f docs/.gitignore
+          test -f docs/LICENSE
+          if [ -f docs/package.json ]; then
+            corepack enable
+            cd docs
+            pnpm install --frozen-lockfile
+            pnpm docs:build || pnpm build
+          else
+            echo "docs/ is still sparse + agent notes (ok)"
+            # Do not invent a VitePress site here without source from klima-docs
+            ! test -d docs/.vitepress
+            test -f docs/CI.md
+            test -f docs/SOURCE_HISTORY.md
+          fi
