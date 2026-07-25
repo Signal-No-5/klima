@@ -1,0 +1,38 @@
+name: Pipeline image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/Dockerfile.pipeline"
+      - "backend/.dockerignore"
+      - "backend/pipeline/**"
+      - "backend/pyproject.toml"
+      - ".github/workflows/ci-pipeline-image.yml"
+  pull_request:
+    paths:
+      - "backend/Dockerfile.pipeline"
+      - "backend/.dockerignore"
+      - "backend/pipeline/**"
+      - "backend/pyproject.toml"
+      - ".github/workflows/ci-pipeline-image.yml"
+
+jobs:
+  build:
+    name: Build pipeline image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: backend
+          file: backend/Dockerfile.pipeline
+          load: true
+          tags: klima-pipeline:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke test entrypoint (offline)
+        run: docker run --rm klima-pipeline:ci --help

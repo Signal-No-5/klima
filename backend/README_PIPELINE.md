@@ -247,6 +247,57 @@ cd backend
 uv run python -c "import duckdb; c=duckdb.connect('data/bronze.duckdb', read_only=True); print(c.execute('SELECT hazard, inserted_at FROM pagasa_warnings').fetchdf())"
 ```
 
+## 🧑‍🔧 Pipeline CLI
+
+One entrypoint drives the medallion stages (used locally and in the container):
+
+```bash
+cd backend
+uv run python -m pipeline run --stage all --reset   # bronze -> silver, fresh
+uv run python -m pipeline run --stage bronze         # single stage
+uv run python -m pipeline summary --stage silver     # inspect only
+uv run python -m pipeline loop --stage all --interval 900  # scheduler
+```
+
+`scripts/run_bronze.py` / `run_silver.py` are thin wrappers around this CLI.
+
+The warehouse directory is `backend/data/` by default; override with
+`KLIMA_DATA_DIR` (used to mount a volume in the container).
+
+## 🐳 Containerized runner (Podman-first)
+
+A minimal image ships **only** the pipeline runtime (`duckdb`, `pandas`,
+`requests`) — never the FastAPI stack — so it stays lean. Builder and runtime
+share `python:3.12-slim`; it runs as non-root and writes to a `/data` volume.
+
+```bash
+cd backend
+
+# Build
+podman build -f Dockerfile.pipeline -t klima-pipeline .
+
+# Run once (bronze -> silver into a named volume)
+podman run --rm -v klima-data:/data klima-pipeline run --stage all --reset
+
+# Inspect what landed
+podman run --rm -v klima-data:/data klima-pipeline summary --stage silver
+
+# Keep it fresh every 15 minutes
+podman run -d --name klima-scheduler -v klima-data:/data \
+  klima-pipeline loop --stage all --interval 900
+```
+
+Or via compose (`docker compose` works too):
+
+```bash
+podman compose -f compose.pipeline.yaml up pipeline            # one-shot
+podman compose -f compose.pipeline.yaml --profile scheduler up # long-running
+```
+
+The `pipeline` dependency set lives in `pyproject.toml`
+(`[project.optional-dependencies] pipeline`); keep the Dockerfile install list
+in sync with it.
+
 ---
 
 ## 🧑‍💻 Closing Note

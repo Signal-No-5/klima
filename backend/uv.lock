@@ -68,6 +68,11 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+pipeline = [
+    { name = "duckdb" },
+    { name = "pandas" },
+    { name = "requests" },
+]
 test = [
     { name = "httpx" },
     { name = "pytest" },
@@ -79,10 +84,12 @@ requires-dist = [
     { name = "alembic", specifier = ">=1.17.0" },
     { name = "casbin", specifier = ">=1.43.0" },
     { name = "duckdb", specifier = ">=1.4.1" },
+    { name = "duckdb", marker = "extra == 'pipeline'", specifier = ">=1.4.1" },
     { name = "fastapi", extras = ["all"], specifier = ">=0.119.0" },
     { name = "httpx", marker = "extra == 'test'", specifier = ">=0.28.0" },
     { name = "loguru", specifier = ">=0.7.3" },
     { name = "pandas", specifier = ">=2.3.3" },
+    { name = "pandas", marker = "extra == 'pipeline'", specifier = ">=2.3.3" },
     { name = "passlib", extras = ["bcrypt"], specifier = ">=1.7.4" },
     { name = "prometheus-fastapi-instrumentator", specifier = ">=7.1.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.11" },
@@ -92,12 +99,13 @@ requires-dist = [
     { name = "python-jose", extras = ["cryptography"], specifier = ">=3.5.0" },
     { name = "python-json-logger", specifier = ">=4.0.0" },
     { name = "requests", specifier = ">=2.32.5" },
+    { name = "requests", marker = "extra == 'pipeline'", specifier = ">=2.32.5" },
     { name = "ruff", marker = "extra == 'test'", specifier = ">=0.8.0" },
     { name = "slowapi", specifier = ">=0.1.9" },
     { name = "sqlmodel", specifier = ">=0.0.27" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.37.0" },
 ]
-provides-extras = ["test"]
+provides-extras = ["test", "pipeline"]
 
 [[package]]
 name = "bcrypt"

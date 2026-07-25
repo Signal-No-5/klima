@@ -1,0 +1,35 @@
+# Klima data pipeline — Podman/Docker compose.
+#
+#   podman compose -f compose.pipeline.yaml up pipeline            # run once
+#   podman compose -f compose.pipeline.yaml --profile scheduler up # keep fresh
+#
+# Works with `docker compose` too. Warehouse persists in the named volume.
+
+services:
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile.pipeline
+    image: klima-pipeline:latest
+    command: ["run", "--stage", "all", "--reset"]
+    environment:
+      KLIMA_DATA_DIR: /data
+    volumes:
+      - klima-data:/data
+
+  # Long-running refresher: re-materialize on an interval (default 15 min).
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.pipeline
+    image: klima-pipeline:latest
+    command: ["loop", "--stage", "all", "--interval", "900"]
+    environment:
+      KLIMA_DATA_DIR: /data
+    restart: unless-stopped
+    volumes:
+      - klima-data:/data
+    profiles: ["scheduler"]
+
+volumes:
+  klima-data:
