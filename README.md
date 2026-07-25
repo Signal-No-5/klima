@@ -26,3 +26,19 @@ shown above.
   not replaced with generated scaffolds.
 
 Future work should happen in this monorepo after this import is accepted.
+
+## Checks
+
+```bash
+# Layout provenance
+python3 -m pytest -q tests/test_monorepo_layout.py
+
+# Backend API smoke tests
+cd backend
+uv sync --extra test
+uv run pytest -q
+```
+
+GitHub Actions runs the same jobs on every push/PR (`.github/workflows/ci.yml`).
+See [`docs/CI.md`](./docs/CI.md).
+
