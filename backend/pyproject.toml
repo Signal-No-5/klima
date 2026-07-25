@@ -9,6 +9,7 @@ dependencies = [
     "casbin>=1.43.0",
     "duckdb>=1.4.1",
     "fastapi[all]>=0.119.0",
+    "klima-data",
     "klima-schema",
     "loguru>=0.7.3",
     "pandas>=2.3.3",
@@ -27,6 +28,7 @@ dependencies = [
 ]
 
 [tool.uv.sources]
+klima-data = { path = "../data", editable = true }
 klima-schema = { path = "../schema", editable = true }
 
 [tool.black]

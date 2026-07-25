@@ -18,9 +18,11 @@ from app.schemas.klima import (
     SafeZoneOut,
 )
 
-# backend/data/bronze.duckdb (fixtures used when missing / empty / unreadable)
-_API_ROOT = Path(__file__).resolve().parents[2]
-BRONZE_DB = _API_ROOT / "data" / "bronze.duckdb"
+# Canonical bronze warehouse owned by the data package (#8).
+# Fixtures are used when it is missing / empty / unreadable.
+# backend/app/services/klima.py → parents[3] = repo root
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+BRONZE_DB = _REPO_ROOT / "data" / "warehouse" / "bronze.duckdb"
 
 # In-memory report store for hackathon demos
 _REPORTS: list[ReportOut] = []

@@ -1,8 +1,11 @@
 # 🌦️ KLIMA Data Pipeline
 
+> **Canonical location (2026-07-25 / #8):** `data/pipeline/` in the monorepo.  
+> This file under `backend/` is historical architecture notes. Prefer `data/README.md` for run commands.
+
 **Author:** Philip Ma, Data Engineer of Team Signal #5
 
-**Last updated:** October 26, 2025
+**Last updated:** October 26, 2025 (path note added 2026-07-25)
 
 ---
 
@@ -10,9 +13,7 @@
 
 KLIMA is a disaster intelligence platform designed to **predict, assess, and communicate risk** across the Philippines.
 
-This document provides an overview of the **data pipeline** located in `klima-api/pipeline/`. It describes the pipeline’s **architecture**, **design rationale**, and **data flow**, highlighting how modular engineering principles support KLIMA’s broader goal of disaster resilience through data.
-
-In the future, this pipeline may evolve into a standalone backend service and separate repository.
+This document provides an overview of the **data pipeline** now owned by the `klima-data` package (`data/pipeline/`). It describes the pipeline’s **architecture**, **design rationale**, and **data flow**, highlighting how modular engineering principles support KLIMA’s broader goal of disaster resilience through data.
 
 ---
 

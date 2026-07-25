@@ -1,0 +1,15 @@
+{
+  "General Flood Advisory": {
+    "advisory": "Fixture advisory for offline bronze ingest",
+    "areas": ["Bulacan", "Pampanga"],
+    "issued_at": "2026-07-25T08:00:00+08:00",
+    "source": "fixture"
+  },
+  "Tropical Cyclone Warning": {
+    "name": "EXAMPLE",
+    "signal": 1,
+    "location": "Philippine Sea",
+    "issued_at": "2026-07-25T08:00:00+08:00",
+    "source": "fixture"
+  }
+}
