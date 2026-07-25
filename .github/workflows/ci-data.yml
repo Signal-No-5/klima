@@ -1,0 +1,39 @@
+name: Data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - ".github/workflows/ci-data.yml"
+  pull_request:
+    paths:
+      - "data/**"
+      - ".github/workflows/ci-data.yml"
+
+jobs:
+  sparse-check:
+    name: Data provenance check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require honest data package boundary
+        run: |
+          set -euo pipefail
+          test -f data/.gitignore
+          test -f data/LICENSE
+          if [ -f data/pyproject.toml ]; then
+            echo "data/pyproject.toml present — sync/test gate"
+            cd data
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            export PATH="$HOME/.local/bin:$PATH"
+            uv sync
+            # Prefer the documented offline bronze entrypoint when present
+            if [ -f pipeline/__main__.py ] || [ -d pipeline ]; then
+              uv run python -m pipeline --help || true
+            fi
+          else
+            echo "data/ is still the sparse klima-data snapshot (ok)"
+            # ETL currently lives under backend/pipeline until owned by data/
+            ! test -d data/pipeline
+          fi

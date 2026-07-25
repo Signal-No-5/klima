@@ -35,12 +35,19 @@ Future work should happen in this monorepo after this import is accepted.
 # Layout provenance
 python3 -m pytest -q tests/test_monorepo_layout.py
 
-# Backend API smoke tests
+# Backend (API + pipeline)
 cd backend
 uv sync --extra test
+uv run ruff check --no-fix app tests
 uv run pytest -q
+
+# Mobile
+cd mobile
+flutter pub get
+flutter analyze --no-fatal-infos
+flutter test
 ```
 
-GitHub Actions runs the same jobs on every push/PR (`.github/workflows/ci.yml`).
-See [`docs/CI.md`](./docs/CI.md).
+Path-filtered GitHub Actions run only when the matching package changes
+(see [`docs/CI.md`](./docs/CI.md)). Agent rules: [`AGENTS.md`](./AGENTS.md).
 

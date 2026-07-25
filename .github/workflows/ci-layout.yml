@@ -1,0 +1,34 @@
+name: Layout
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tests/**"
+      - "AGENTS.md"
+      - "README.md"
+      - ".github/workflows/ci-layout.yml"
+      - ".agents/**"
+      - ".cursor/skills/**"
+  pull_request:
+    paths:
+      - "tests/**"
+      - "AGENTS.md"
+      - "README.md"
+      - ".github/workflows/ci-layout.yml"
+      - ".agents/**"
+      - ".cursor/skills/**"
+
+jobs:
+  layout:
+    name: Monorepo layout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pytest
+        run: pip install pytest
+      - name: Check provenance layout
+        run: pytest -q tests/test_monorepo_layout.py

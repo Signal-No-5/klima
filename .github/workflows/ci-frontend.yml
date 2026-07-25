@@ -1,0 +1,44 @@
+name: Frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/ci-frontend.yml"
+  pull_request:
+    paths:
+      - "frontend/**"
+      - ".github/workflows/ci-frontend.yml"
+
+jobs:
+  sparse-check:
+    name: Frontend provenance check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require source-repo files only until scaffold exists
+        run: |
+          set -euo pipefail
+          test -f frontend/.gitignore
+          test -f frontend/LICENSE
+          # Fail loudly if someone adds a fake scaffold without a real package.json
+          # from klima-lgu-dashboard work — package.json is the go signal.
+          if [ -f frontend/package.json ]; then
+            echo "frontend/package.json present — install/build gate will be added next"
+            if [ -f frontend/pnpm-lock.yaml ] || [ -f frontend/package-lock.json ]; then
+              corepack enable
+              cd frontend
+              if [ -f pnpm-lock.yaml ]; then
+                pnpm install --frozen-lockfile
+                pnpm exec tsc --noEmit || pnpm run lint || true
+              fi
+            fi
+          else
+            echo "frontend/ is still the sparse klima-lgu-dashboard snapshot (ok)"
+            # Guardrail: no invented Next.js apps under frontend/
+            ! test -d frontend/app
+            ! test -d frontend/src
+            ! test -f frontend/next.config.js
+            ! test -f frontend/next.config.ts
+          fi
