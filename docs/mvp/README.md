@@ -26,7 +26,7 @@ klima/
 - [ ] Backend boots; health + mobile contract endpoints work
 - [ ] Frontend talks to live backend
 - [ ] Docs site builds with getting-started + API overview
-- [ ] Data owns ETL; bronze ingest runnable
+- [x] Data owns ETL; bronze ingest runnable (#8)
 - [ ] `schema/` is SoT for hazard/report/safezone/community
 - [ ] README + STATUS match reality
 - [ ] Handoffs exist for every workstream issue

@@ -18,9 +18,10 @@ from app.schemas.klima import (
     SafeZoneOut,
 )
 
-# web/api/data/bronze.duckdb (from app/services/klima.py)
-_API_ROOT = Path(__file__).resolve().parents[2]
-BRONZE_DB = _API_ROOT / "data" / "bronze.duckdb"
+# Canonical bronze warehouse owned by the data package (#8).
+# backend/app/services/klima.py → parents[3] = repo root
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+BRONZE_DB = _REPO_ROOT / "data" / "warehouse" / "bronze.duckdb"
 
 # In-memory report store for hackathon demos
 _REPORTS: list[ReportOut] = []

@@ -127,7 +127,8 @@ def _materialize(records, name, stage, schema, dedupe_key, parents):
     if not db_path:
         raise ValueError(f"No database configured for stage '{stage}'")
 
-    with duckdb.connect(db_path) as con:
+    db.WAREHOUSE_DIR.mkdir(parents=True, exist_ok=True)
+    with duckdb.connect(str(db_path)) as con:
         con.execute(f"CREATE TABLE IF NOT EXISTS {name} ({schema})")
         
         # Add a timestamp for traceability

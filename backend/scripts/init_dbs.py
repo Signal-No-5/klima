@@ -1,18 +1,22 @@
-from pathlib import Path
+#!/usr/bin/env python3
+"""Initialize DuckDB warehouse files under the data package (not backend/data)."""
+
+from __future__ import annotations
 
 import duckdb
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+from pipeline.config import db
+
 DBS = {
-    "bronze": DATA_DIR / "bronze.duckdb",
-    "silver": DATA_DIR / "silver.duckdb",
-    "gold": DATA_DIR / "gold.duckdb",
+    "bronze": db.BRONZE,
+    "silver": db.SILVER,
+    "gold": db.GOLD,
 }
 
 
-def init_databases():
+def init_databases() -> None:
     """Create the 3-tier DuckDB databases if they don't exist."""
-    DATA_DIR.mkdir(exist_ok=True)
+    db.WAREHOUSE_DIR.mkdir(parents=True, exist_ok=True)
 
     for name, db_path in DBS.items():
         if not db_path.exists():

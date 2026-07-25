@@ -9,6 +9,7 @@ dependencies = [
     "casbin>=1.43.0",
     "duckdb>=1.4.1",
     "fastapi[all]>=0.119.0",
+    "klima-data",
     "loguru>=0.7.3",
     "pandas>=2.3.3",
     "passlib[bcrypt]>=1.7.4",
@@ -24,6 +25,9 @@ dependencies = [
     "sqlmodel>=0.0.27",
     "uvicorn[standard]>=0.37.0",
 ]
+
+[tool.uv.sources]
+klima-data = { path = "../data", editable = true }
 
 [tool.black]
 line-length = 88
