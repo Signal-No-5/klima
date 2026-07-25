@@ -1,4 +1,4 @@
-# `web/dashboard/` — LGU dashboard scaffold
+# `frontend/` — LGU dashboard scaffold
 
 Next.js stub for a future LGU / MDRRMO dashboard.
 

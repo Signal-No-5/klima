@@ -1,7 +1,7 @@
 # HANDOFF — Flatten monorepo (#3)
 
-**Status:** Planned  
-**Branch:** `docs/mvp-handoffs` (implement on `feat/mvp-flatten`)  
+**Status:** In progress  
+**Branch:** `feat/mvp-flatten`  
 **Issue(s):** #3  
 **Last updated:** 2026-07-25
 

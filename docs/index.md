@@ -9,6 +9,6 @@ This is **not** a full product docs portal yet. See the root [`STATUS.md`](../..
 | Path | Role |
 |------|------|
 | `mobile/` | Flutter app |
-| `web/api/` | FastAPI + pipeline |
-| `web/dashboard/` | LGU dashboard stub |
-| `data/` | ETL pointer (pipeline lives in `web/api/pipeline`) |
+| `backend/` | FastAPI + pipeline |
+| `frontend/` | LGU dashboard stub |
+| `data/` | ETL pointer (pipeline lives in `backend/pipeline`) |

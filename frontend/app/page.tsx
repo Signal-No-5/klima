@@ -21,7 +21,7 @@ export default function HomePage() {
         </h1>
         <p style={{ lineHeight: 1.6, margin: 0 }}>
           This package is an honest monorepo scaffold. Citizen flows live in{" "}
-          <code>mobile/</code>; API + ETL live in <code>web/api/</code>. See root{" "}
+          <code>mobile/</code>; API + ETL live in <code>backend/</code>. See root{" "}
           <code>STATUS.md</code>.
         </p>
       </div>

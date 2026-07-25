@@ -1,4 +1,4 @@
-# `web/docs/` — VitePress scaffold
+# `docs/` — VitePress scaffold
 
 Documentation site stub for Klima. Not a full product docs portal yet.
 
