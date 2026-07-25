@@ -1,0 +1,165 @@
+{
+  "$defs": {
+    "ReportStatus": {
+      "enum": [
+        "pending",
+        "verified",
+        "responding",
+        "resolved",
+        "dismissed"
+      ],
+      "title": "ReportStatus",
+      "type": "string"
+    },
+    "ReportType": {
+      "enum": [
+        "hazard",
+        "help",
+        "safe"
+      ],
+      "title": "ReportType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Persisted report returned by the API.",
+  "properties": {
+    "barangay": {
+      "default": "",
+      "title": "Barangay",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "hazard_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hazard Type"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Url"
+    },
+    "image_urls": {
+      "anyOf": [
+        {
+          "items": {
+            "format": "uri",
+            "maxLength": 2083,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Urls"
+    },
+    "latitude": {
+      "default": 0.0,
+      "maximum": 90,
+      "minimum": -90,
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "default": 0.0,
+      "maximum": 180,
+      "minimum": -180,
+      "title": "Longitude",
+      "type": "number"
+    },
+    "municipality": {
+      "default": "",
+      "title": "Municipality",
+      "type": "string"
+    },
+    "responded_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Responded At"
+    },
+    "responder_notes": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Responder Notes"
+    },
+    "status": {
+      "$ref": "#/$defs/ReportStatus",
+      "default": "pending"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "title": {
+      "default": "",
+      "title": "Title",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/$defs/ReportType",
+      "default": "hazard"
+    },
+    "user_id": {
+      "default": "",
+      "title": "User Id",
+      "type": "string"
+    },
+    "user_name": {
+      "default": "Anonymous",
+      "title": "User Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "timestamp"
+  ],
+  "title": "ReportOut",
+  "type": "object"
+}
