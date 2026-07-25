@@ -41,6 +41,7 @@ klima/
 | W4 | Frontend live | [#6](https://github.com/Signal-No-5/klima/issues/6) | P0 |
 | W5 | Docs site | [#7](https://github.com/Signal-No-5/klima/issues/7) | P1 |
 | W6 | Data owns ETL | [#8](https://github.com/Signal-No-5/klima/issues/8) | P0 |
+| W7 | Centralize deployments | [#9](https://github.com/Signal-No-5/klima/issues/9) | P1 |
 
 **Suggested order:** W1 → W2 → W3∥W6 → W4 → W5 (schema before backend; data can parallel backend after flatten).
 
