@@ -22,7 +22,6 @@ export default defineConfig({
         items: [
           { text: "Home", link: "/" },
           { text: "Getting started", link: "/getting-started" },
-<<<<<<< HEAD
           { text: "Monorepo layout", link: "/layout" },
         ],
       },
