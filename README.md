@@ -29,6 +29,9 @@ authors and commits. See [`docs/SOURCE_HISTORY.md`](./docs/SOURCE_HISTORY.md).
 
 Future work should happen in this monorepo after this import is accepted.
 
+PAGASA website API (unofficial reverse-engineering + OpenAPI):
+[`docs/pagasa/`](./docs/pagasa/).
+
 ## Checks
 
 ```bash

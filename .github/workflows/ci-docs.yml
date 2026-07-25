@@ -33,4 +33,9 @@ jobs:
             ! test -d docs/.vitepress
             test -f docs/CI.md
             test -f docs/SOURCE_HISTORY.md
+            # PAGASA reverse-engineering pack (optional until present; required once added)
+            if [ -d docs/pagasa ]; then
+              test -f docs/pagasa/README.md
+              test -f docs/pagasa/openapi.yaml
+            fi
           fi
