@@ -10,6 +10,8 @@ on:
       - ".github/workflows/ci-layout.yml"
       - ".agents/**"
       - ".cursor/skills/**"
+      - "schema/**"
+      - "backend/app/schemas/**"
   pull_request:
     paths:
       - "tests/**"
@@ -18,6 +20,8 @@ on:
       - ".github/workflows/ci-layout.yml"
       - ".agents/**"
       - ".cursor/skills/**"
+      - "schema/**"
+      - "backend/app/schemas/**"
 
 jobs:
   layout:

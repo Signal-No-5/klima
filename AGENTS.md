@@ -13,6 +13,7 @@ Flat monorepo assembled from five `Signal-No-5` source repositories:
 | `frontend/` | `klima-lgu-dashboard` | Sparse (`.gitignore` + `LICENSE` only) |
 | `data/` | `klima-data` | Sparse until ETL ownership moves here |
 | `docs/` | `klima-docs` | Sparse + agent notes (`CI.md`, `SOURCE_HISTORY.md`) |
+| `schema/` | — | `klima-schema`: the only place wire models are defined |
 
 Provenance and history: [`docs/SOURCE_HISTORY.md`](./docs/SOURCE_HISTORY.md).
 
@@ -26,6 +27,23 @@ Provenance and history: [`docs/SOURCE_HISTORY.md`](./docs/SOURCE_HISTORY.md).
 6. **Containers:** prefer **Podman** over Docker Desktop when documenting or scripting local runs.
 7. **JS package manager:** **pnpm** only (never npm/npx as the project default).
 8. **Python tooling:** **uv** for backend/data packages.
+9. **Wire models live in `schema/` only.** Never define a request/response model
+   inside `backend/`; import from `klima_schema`. See the `klima-contracts` skill.
+10. **Say which data is real.** Hazards are live PAGASA; safe zones, community
+    posts, and barangay baselines are seed JSON. Never present seed data as live.
+
+## Branching
+
+Three tiers, named by prefix. Agents never open or merge a PR against `main`.
+
+| Tier | Prefix | Who |
+| --- | --- | --- |
+| T1 | `main` | maintainers only |
+| T2 | `integ/*` | integration branch per scope; maintainers promote to T1 |
+| T3 | `feat/*`, `fix/*`, `chore/*` | one working branch per ticket; PRs target T2 |
+
+The current backend pass uses `integ/backend-mvp`. Full contract:
+[`docs/handoff/backend.md`](./docs/handoff/backend.md).
 
 ## How to work
 
@@ -41,13 +59,21 @@ Provenance and history: [`docs/SOURCE_HISTORY.md`](./docs/SOURCE_HISTORY.md).
 # Layout
 python3 -m pytest -q tests/test_monorepo_layout.py
 
-# Backend
+# Backend (+ central schema)
 cd backend && uv sync --extra test
-uv run ruff check --no-fix app tests
-uv run pytest -q
+uv run ruff check --no-fix app tests ../schema/klima_schema
+uv run python -m pytest -q
+uv run python -m uvicorn app.main:app --reload   # not `uv run uvicorn`
 
 # Mobile
 cd mobile && flutter pub get && flutter analyze && flutter test
+```
+
+Whole workflows can be run locally with `act` over the Podman socket:
+
+```bash
+export DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock
+act pull_request -W .github/workflows/ci-backend.yml
 ```
 
 ## Skills index
@@ -60,6 +86,8 @@ cd mobile && flutter pub get && flutter analyze && flutter test
 | `klima-spec` | Drift vs README / STATUS / contracts |
 | `klima-planning` | Architecture / milestone plans |
 | `klima-mobile` | Flutter work in `mobile/` |
+| `klima-backend` | FastAPI work in `backend/` — endpoints, services, warehouse reads |
+| `klima-contracts` | Any field that crosses the wire; `schema/` changes |
 | `klima-improvement` | Fix loops; write `.agents/LEARNINGS.md` |
 
 ## Out of scope for agents by default
