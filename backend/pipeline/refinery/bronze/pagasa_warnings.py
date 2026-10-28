@@ -31,6 +31,16 @@ def pagasa_warnings(ctx):
         headers=pagasa.ACTIVE_WARNING_HEADERS,
     )
 
+    # PAGASA returns `{}`-shaped JSON keyed by hazard type when warnings are
+    # active, but an empty JSON array (`[]`) when there are none active.
+    # Treat the no-warnings case as zero records instead of crashing.
+    if isinstance(data, list):
+        if data:
+            raise TypeError(
+                f"Unexpected non-empty list payload from PAGASA ActiveWarning: {data!r}"
+            )
+        data = {}
+
     # Split top-level hazards into separate records
     records = []
     for hazard, payload in data.items():

@@ -129,7 +129,13 @@ def _materialize(records, name, stage, schema, dedupe_key, parents):
 
     with duckdb.connect(db_path) as con:
         con.execute(f"CREATE TABLE IF NOT EXISTS {name} ({schema})")
-        
+
+        # Nothing to load this run (e.g. an upstream API reported zero
+        # records) -- the table is still created/ensured above, but there
+        # are no columns to insert, so stop here.
+        if df.empty:
+            return 0
+
         # Add a timestamp for traceability
         df['inserted_at'] = right_now()
 
