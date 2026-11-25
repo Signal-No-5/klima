@@ -1,0 +1,123 @@
+{
+  "additionalProperties": false,
+  "description": "Active official or citizen-reported hazard feed item.",
+  "properties": {
+    "barangay": {
+      "default": "",
+      "title": "Barangay",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "id": {
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Url"
+    },
+    "is_verified": {
+      "default": false,
+      "title": "Is Verified",
+      "type": "boolean"
+    },
+    "latitude": {
+      "maximum": 90,
+      "minimum": -90,
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "maximum": 180,
+      "minimum": -180,
+      "title": "Longitude",
+      "type": "number"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Metadata"
+    },
+    "municipality": {
+      "default": "",
+      "title": "Municipality",
+      "type": "string"
+    },
+    "province": {
+      "default": "",
+      "title": "Province",
+      "type": "string"
+    },
+    "reports": {
+      "default": 1,
+      "minimum": 0,
+      "title": "Reports",
+      "type": "integer"
+    },
+    "severity": {
+      "default": "moderate",
+      "title": "Severity",
+      "type": "string"
+    },
+    "source": {
+      "default": "citizen",
+      "title": "Source",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    },
+    "title": {
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "type": {
+      "minLength": 1,
+      "title": "Type",
+      "type": "string"
+    },
+    "upvotes": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Upvotes",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "title",
+    "description",
+    "latitude",
+    "longitude",
+    "timestamp"
+  ],
+  "title": "HazardOut",
+  "type": "object"
+}

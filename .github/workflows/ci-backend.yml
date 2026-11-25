@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - "backend/**"
+      - "schema/**"
       - ".github/workflows/ci-backend.yml"
   pull_request:
     paths:
       - "backend/**"
+      - "schema/**"
       - ".github/workflows/ci-backend.yml"
 
 defaults:
@@ -30,6 +32,11 @@ jobs:
         run: uv sync --extra test
       - name: Ruff (lint)
         # Gate app + tests; pipeline has pre-existing tab/style debt from source history.
-        run: uv run ruff check --no-fix app tests
+        run: uv run ruff check --no-fix app tests ../schema/klima_schema
       - name: Pytest
         run: uv run pytest -q --tb=short
+      - name: Exported JSON Schema is current
+        # Committed contracts must match the Pydantic models they came from.
+        run: |
+          uv run python -m klima_schema.export --out ../schema/exported
+          git diff --exit-code -- ../schema/exported

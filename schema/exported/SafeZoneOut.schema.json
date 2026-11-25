@@ -1,0 +1,130 @@
+{
+  "additionalProperties": false,
+  "description": "Evacuation center or other safe facility.",
+  "properties": {
+    "address": {
+      "default": "",
+      "title": "Address",
+      "type": "string"
+    },
+    "amenities": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Amenities",
+      "type": "array"
+    },
+    "barangay": {
+      "default": "",
+      "title": "Barangay",
+      "type": "string"
+    },
+    "capacity": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Capacity",
+      "type": "integer"
+    },
+    "contact_number": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Contact Number"
+    },
+    "current_occupancy": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Current Occupancy",
+      "type": "integer"
+    },
+    "elevation": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Elevation"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Image Url"
+    },
+    "is_operational": {
+      "default": true,
+      "title": "Is Operational",
+      "type": "boolean"
+    },
+    "latitude": {
+      "maximum": 90,
+      "minimum": -90,
+      "title": "Latitude",
+      "type": "number"
+    },
+    "longitude": {
+      "maximum": 180,
+      "minimum": -180,
+      "title": "Longitude",
+      "type": "number"
+    },
+    "metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Metadata"
+    },
+    "municipality": {
+      "default": "",
+      "title": "Municipality",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "type": {
+      "default": "evacuation_center",
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "latitude",
+    "longitude"
+  ],
+  "title": "SafeZoneOut",
+  "type": "object"
+}
