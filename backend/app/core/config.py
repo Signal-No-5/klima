@@ -5,8 +5,10 @@ from sqlmodel import SQLModel
 from app.core.database import Database
 from app.core.prefs import AuthSettings, DatabaseSettings, settings
 from app.models.admin import AuditLog
+from app.models.reports import CitizenReport
 
-_dbs = [AuditLog]
+# Imported so SQLModel.metadata knows every table before create_all() below.
+_dbs = [AuditLog, CitizenReport]
 # --- Logging setup ---
 logging.basicConfig(level=getattr(logging, settings.log_level.upper(), logging.ERROR))
 logger = logging.getLogger("app")

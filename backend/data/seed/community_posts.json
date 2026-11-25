@@ -1,0 +1,37 @@
+[
+  {
+    "id": "calumpit-relief-schedule",
+    "title": "Relief Operations Schedule",
+    "content": "Magkakaroon ng relief distribution sa Barangay Hall, 8:00 AM. Magdala ng valid ID at barangay certification.",
+    "author_name": "Calumpit LGU",
+    "author_type": "lgu",
+    "timestamp": "2026-07-25T11:00:00+08:00",
+    "tags": ["relief", "schedule", "Calumpit"],
+    "is_pinned": true,
+    "views": 0,
+    "contact_info": "(044) 913-1234"
+  },
+  {
+    "id": "calumpit-road-clearing",
+    "title": "Road Clearing Update",
+    "content": "Tapos na ang clearing operations sa C. Mercado Street. Pwede na dumaan ang mga sasakyan, pero mag-ingat sa debris.",
+    "author_name": "MDRRMO Calumpit",
+    "author_type": "lgu",
+    "timestamp": "2026-07-25T09:30:00+08:00",
+    "tags": ["update", "road", "Calumpit"],
+    "is_pinned": false,
+    "views": 0
+  },
+  {
+    "id": "calumpit-evacuation-reminder-iba-este",
+    "title": "Pre-emptive Evacuation - Iba Este",
+    "content": "Mga taga-riverside ng Iba Este, mangyaring lumikas na sa Calumpit National High School bago tumaas ang tubig.",
+    "author_name": "Barangay Iba Este",
+    "author_type": "barangay",
+    "timestamp": "2026-07-25T14:15:00+08:00",
+    "tags": ["evacuation", "Iba Este", "Calumpit"],
+    "is_pinned": true,
+    "views": 0,
+    "contact_info": "(044) 913-4400"
+  }
+]

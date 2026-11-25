@@ -1,0 +1,218 @@
+[
+  {
+    "id": "calumpit-balite",
+    "name": "Balite",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.5,
+    "total_population": 3800
+  },
+  {
+    "id": "calumpit-balungao",
+    "name": "Balungao",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.65,
+    "total_population": 4200
+  },
+  {
+    "id": "calumpit-buguion",
+    "name": "Buguion",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 2900
+  },
+  {
+    "id": "calumpit-bulusan",
+    "name": "Bulusan",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 3100
+  },
+  {
+    "id": "calumpit-calizon",
+    "name": "Calizon",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 3400
+  },
+  {
+    "id": "calumpit-caniogan",
+    "name": "Caniogan",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.65,
+    "total_population": 5100
+  },
+  {
+    "id": "calumpit-corazon",
+    "name": "Corazon",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.5,
+    "total_population": 2600
+  },
+  {
+    "id": "calumpit-frances",
+    "name": "Frances",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 3300
+  },
+  {
+    "id": "calumpit-gatbuca",
+    "name": "Gatbuca",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.7,
+    "total_population": 4700
+  },
+  {
+    "id": "calumpit-gugo",
+    "name": "Gugo",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.5,
+    "total_population": 3000
+  },
+  {
+    "id": "calumpit-iba-este",
+    "name": "Iba Este",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.7,
+    "total_population": 5400
+  },
+  {
+    "id": "calumpit-iba-oeste",
+    "name": "Iba O'Este",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.7,
+    "total_population": 5000
+  },
+  {
+    "id": "calumpit-longos",
+    "name": "Longos",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 3600
+  },
+  {
+    "id": "calumpit-meysulao",
+    "name": "Meysulao",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 3200
+  },
+  {
+    "id": "calumpit-palimbang",
+    "name": "Palimbang",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.5,
+    "total_population": 2400
+  },
+  {
+    "id": "calumpit-panducot",
+    "name": "Panducot",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.5,
+    "total_population": 2800
+  },
+  {
+    "id": "calumpit-pio-cruzcosa",
+    "name": "Pio Cruzcosa",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.3,
+    "vulnerability_score": 0.4,
+    "total_population": 4100
+  },
+  {
+    "id": "calumpit-pungo",
+    "name": "Pungo",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.6,
+    "total_population": 2700
+  },
+  {
+    "id": "calumpit-san-jose",
+    "name": "San Jose",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.3,
+    "vulnerability_score": 0.4,
+    "total_population": 3900
+  },
+  {
+    "id": "calumpit-san-marcos",
+    "name": "San Marcos",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.45,
+    "total_population": 3500
+  },
+  {
+    "id": "calumpit-santa-lucia",
+    "name": "Santa Lucia",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.45,
+    "total_population": 3700
+  },
+  {
+    "id": "calumpit-santo-cristo",
+    "name": "Santo Cristo",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.3,
+    "vulnerability_score": 0.4,
+    "total_population": 4400
+  },
+  {
+    "id": "calumpit-santo-nino",
+    "name": "Santo Niño",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.55,
+    "vulnerability_score": 0.45,
+    "total_population": 4600
+  },
+  {
+    "id": "calumpit-sapang-bayan",
+    "name": "Sapang Bayan",
+    "municipality": "Calumpit",
+    "province": "Bulacan",
+    "exposure_score": 0.8,
+    "vulnerability_score": 0.7,
+    "total_population": 2200
+  }
+]

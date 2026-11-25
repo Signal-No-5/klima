@@ -185,12 +185,24 @@ LOG_LEVEL=INFO
 ### 🖥 Local (dev)
 
 ```bash
-# Option 1: using uv
-uv run uvicorn app.main:app --reload
-
-# Option 2: using Python
-python -m uvicorn app.main:app --reload
+uv sync
+uv run python -m uvicorn app.main:app --reload
 ```
+
+Use `python -m uvicorn`, not `uv run uvicorn`: if a `uvicorn` binary exists
+earlier on `PATH` (a system or `~/.local/bin` install), `uv run uvicorn` executes
+that one against the wrong interpreter and fails with `ModuleNotFoundError`.
+
+Hazard data comes from the DuckDB silver warehouse, so build it before expecting
+a populated feed:
+
+```bash
+uv run python -m pipeline run          # bronze + silver
+curl -s localhost:8000/health/ready    # confirms the warehouse and seed state
+```
+
+`/health/ready` reports `degraded` when the warehouse is missing or has no active
+advisories — that is the usual reason `/hazard/latest` returns `[]`.
 
 The API will be available at:
 👉 [http://localhost:8000](http://localhost:8000)
@@ -235,13 +247,33 @@ alembic upgrade head
 
 ## 🧰 Useful Commands
 
-| Command                         | Description               |
-| ------------------------------- | ------------------------- |
-| `uvicorn app.main:app --reload` | Start dev server          |
-| `pytest`                        | Run tests                 |
-| `alembic upgrade head`          | Apply DB migrations       |
-| `docker-compose up`             | Run via Docker            |
-| `docker-compose logs -f api`    | Follow API logs           |
+| Command                                        | Description         |
+| ---------------------------------------------- | ------------------- |
+| `uv run python -m uvicorn app.main:app --reload` | Start dev server  |
+| `uv run python -m pytest -q`                    | Run tests           |
+| `uv run ruff check --no-fix app tests`          | Lint                |
+| `uv run python -m pipeline run`                 | Build bronze+silver |
+| `alembic upgrade head`                          | Apply DB migrations |
+| `docker-compose up`                             | Run via Docker      |
+
+---
+
+## 🗺 Klima MVP endpoints
+
+Every response model is generated from the central `klima-schema` package, so
+these shapes match the Flutter client field for field. See
+[`docs/backend/api-mvp.md`](../docs/backend/api-mvp.md) for parameters and
+examples.
+
+| Endpoint                | Source of truth                        |
+| ----------------------- | -------------------------------------- |
+| `GET /hazard/latest`    | silver `hazard_warnings` (live PAGASA)  |
+| `POST`/`GET /reports`   | SQL database (`citizenreport` table)    |
+| `GET /risk/{barangay}`  | live hazards + `data/seed/barangays.json` |
+| `GET /safezones`        | `data/seed/safe_zones.json`             |
+| `GET /community/posts`  | `data/seed/community_posts.json`         |
+| `GET /health`, `/health/ready` | liveness, then warehouse/seed detail |
+| `GET /metrics`          | Prometheus instrumentation               |
 
 ---
 
